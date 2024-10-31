@@ -1,16 +1,32 @@
 ---
-
+import Layout from '../layouts/Layout.astro';
+import BentoGrid from '../components/BentoGrid.astro';
+import ProjectList from '../components/ProjectList.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="Mis Proyectos">
+  <main>
+    <BentoGrid />
+    
+    <div class="section-divider">
+      <h2>Proyectos</h2>
+    </div>
+    
+    <ProjectList />
+  </main>
+</Layout>
+
+<style>
+.section-divider {
+  max-width: 1200px;
+  margin: 4rem auto 2rem;
+  padding: 0 1rem;
+  text-align: center;
+}
+
+.section-divider h2 {
+  font-size: var(--text-lg);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+</style>

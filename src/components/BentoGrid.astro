@@ -1,0 +1,204 @@
+---
+import { getCollection } from 'astro:content';
+const featuredProjects = await getCollection('projects', ({ data }) => {
+  return data.featured === true;
+});
+
+// Duplicar los proyectos para tener suficiente contenido
+const duplicatedProjects = [...featuredProjects, ...featuredProjects, ...featuredProjects];
+
+// Separar los proyectos en dos filas
+const topRow = duplicatedProjects.filter((_, i) => i % 2 === 0);
+const bottomRow = duplicatedProjects.filter((_, i) => i % 2 === 1);
+---
+
+<section class="bento-container">
+  <div class="scroll-container">
+    <div class="row-wrapper top-row">
+      <div class="scroll-content">
+        {topRow.map((project) => (
+          <a href={`/projects/${project.slug}`} class="bento-item">
+            {project.data.media.type === 'video' ? (
+              <div class="media-container">
+                <video 
+                  autoplay 
+                  muted 
+                  loop 
+                  playsinline
+                  poster={project.data.media.thumbnail}
+                  loading="eager"
+                  preload="auto"
+                  data-keepplaying="true"
+                >
+                  <source src={project.data.media.url} type="video/mp4" />
+                </video>
+              </div>
+            ) : (
+              <div class="media-container">
+                <img src={project.data.media.url} alt={project.data.title} loading="eager" />
+              </div>
+            )}
+          </a>
+        ))}
+      </div>
+    </div>
+    <div class="row-wrapper bottom-row">
+      <div class="scroll-content">
+        {bottomRow.map((project) => (
+          <a href={`/projects/${project.slug}`} class="bento-item">
+            {project.data.media.type === 'video' ? (
+              <div class="media-container">
+                <video 
+                  autoplay 
+                  muted 
+                  loop 
+                  playsinline
+                  poster={project.data.media.thumbnail}
+                  loading="eager"
+                  preload="auto"
+                  data-keepplaying="true"
+                >
+                  <source src={project.data.media.url} type="video/mp4" />
+                </video>
+              </div>
+            ) : (
+              <div class="media-container">
+                <img src={project.data.media.url} alt={project.data.title} loading="eager" />
+              </div>
+            )}
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.bento-container {
+  width: 100%;
+  overflow: hidden;
+  margin: 2rem 0;
+  height: 300px;
+}
+
+.scroll-container {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.row-wrapper {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.scroll-content {
+  display: flex;
+  gap: 0.75rem;
+}
+
+/* Ajustado el desplazamiento de la segunda fila */
+.bottom-row {
+  margin-left: 100px;
+  padding-right: 100px;
+}
+
+.bento-item {
+  flex: 0 0 250px;
+  height: 140px;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.bento-item:hover {
+  transform: scale(1.02);
+}
+
+.media-container {
+  width: 100%;
+  height: 100%;
+}
+
+.media-container img,
+.media-container video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .bento-container {
+    height: 240px;
+  }
+
+  .bento-item {
+    flex: 0 0 200px;
+    height: 110px;
+  }
+
+  .bottom-row {
+    margin-left: 50px;
+    padding-right: 50px;
+  }
+}
+</style>
+
+<script>
+// Mejor manejo de videos
+document.querySelectorAll('.bento-item').forEach(item => {
+  const video = item.querySelector('video');
+  
+  if (video) {
+    // Precarga el video
+    video.preload = "auto";
+    
+    // Mantiene el video cargado pero pausado
+    video.load();
+    
+    // Manejo de hover
+    item.addEventListener('mouseenter', () => {
+      // Intenta reproducir varias veces si falla
+      const playPromise = video.play();
+      
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          setTimeout(() => {
+            video.play();
+          }, 50);
+        });
+      }
+    });
+
+    item.addEventListener('mouseleave', () => {
+      video.pause();
+      // No reiniciamos el video al principio
+      // video.currentTime = 0;
+    });
+
+    // Si el video termina, reiniciarlo
+    video.addEventListener('ended', () => {
+      video.currentTime = 0;
+      video.play();
+    });
+
+    // Manejar errores de carga
+    video.addEventListener('error', () => {
+      console.error('Error loading video:', video.src);
+      // Mostrar el thumbnail si hay error
+      if (video.poster) {
+        const img = document.createElement('img');
+        img.src = video.poster;
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.objectFit = 'cover';
+        video.parentNode.replaceChild(img, video);
+      }
+    });
+  }
+});
+</script> 

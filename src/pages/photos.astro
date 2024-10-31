@@ -1,0 +1,326 @@
+---
+import CleanLayout from '../layouts/CleanLayout.astro';
+
+// Datos de las fotos/proyectos
+const photos = [
+  {
+    image: "/img/pink.jpg",
+    title: "🏢",
+    date: "26 de Julio, 2023",
+    location: "Santiago, Chile",
+    link: "https://github.com/gioahumada/linktanya",
+  },
+  {
+    image: "/img/lawyer.jpg",
+    title: "better call gio",
+    date: "15 de Agosto, 2023",
+    location: "Valparaíso, Chile",
+    link: "https://github.com/gioahumada/tiktokportafolio",
+  },
+  {
+    image: "/img/palm.jpg",
+    title: "🔴🟠🟡🟢🔵🟣🟤⚫️⚪️",
+    date: "4 de enero de 2023",
+    location: "Viña del Mar, Chile",
+    link: "https://github.com/gioahumada/linktree",
+  },
+  {
+    image: "/img/scout.jpg",
+    title: "2. champagne problems - taylor swift",
+    date: "9 de diciembre de 2022",
+    location: "Villa Alemana, Chile",
+    link: "https://github.com/gioahumada/tiktokportafolio",
+  },
+];
+---
+
+<CleanLayout title="Fotografías">
+  <a href="/" class="back-button">
+    <span class="material-symbols-outlined">arrow_back</span>
+  </a>
+
+  <div class="app__photos">
+    {photos.map(photo => (
+      <div class="photo">
+        <a href={photo.link} target="_blank">
+          <img src={photo.image} class="photo__image" alt={photo.title} />
+        </a>
+
+        <div class="photoSidebar">
+          <button class="share-button" aria-label="Compartir">
+            <span class="material-symbols-outlined">ios_share</span>
+          </button>
+        </div>
+
+        <div class="photoFooter">
+          <div class="photoFooter__text">
+            <h3>{photo.title}</h3>
+            <p class="photoFooter__description">{photo.date}</p>
+            <div class="photoFooter__ticker">
+              <span class="material-symbols-outlined photoFooter__icon">location_on</span>
+              <marquee>{photo.location}</marquee>
+            </div>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</CleanLayout>
+
+<style>
+/* Botón de regreso */
+.back-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-decoration: none;
+  backdrop-filter: blur(5px);
+  transition: transform 0.3s ease;
+}
+
+.back-button:hover {
+  transform: scale(1.1);
+}
+
+.back-button .material-symbols-outlined {
+  font-size: var(--text-lg);
+}
+
+.app__photos {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  height: 100vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scroll-snap-type: y mandatory;
+  background-color: white;
+  border-radius: 20px;
+  -ms-overflow-style: none;  /* IE y Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Ocultar scrollbar para Chrome, Safari y Opera */
+.app__photos::-webkit-scrollbar {
+  display: none;
+}
+
+.photo {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  scroll-snap-align: start;
+  overflow: hidden;
+}
+
+.photo__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(0, 0, 0, 0.2) 20%,
+    rgba(0, 0, 0, 0.7) 60%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+  pointer-events: none;
+}
+
+.photoSidebar {
+  position: absolute;
+  top: 45%;
+  right: 10px;
+  z-index: 2;
+}
+
+.photoSidebar .material-symbols-outlined {
+  font-size: var(--text-lg);
+  cursor: pointer;
+}
+
+.photoSidebar_button {
+  padding: 0.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.photoSidebar_button p {
+  font-size: var(--text-xs);
+}
+
+.photoFooter {
+  position: absolute;
+  bottom: 2rem;
+  left: 0;
+  right: 0;
+  padding: 0 1rem;
+  color: white;
+  z-index: 2;
+}
+
+.photoFooter__text {
+  max-width: 100%;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.photoFooter__text h3 {
+  font-size: var(--text-lg);
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  white-space: normal;
+  line-height: 1.2;
+}
+
+.photoFooter__description {
+  font-size: var(--text-sm);
+  margin-bottom: 0.75rem;
+  white-space: normal;
+  line-height: 1.4;
+  opacity: 0.8;
+}
+
+.photoFooter__ticker {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--text-sm);
+}
+
+.photoFooter__icon {
+  font-size: var(--text-base);
+  color: white;
+}
+
+.photoFooter__ticker marquee {
+  flex: 1;
+  opacity: 0.9;
+}
+
+@media (max-width: 425px) {
+  .app__photos {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    border-radius: 0;
+  }
+
+  .photoFooter {
+    bottom: 1rem;
+  }
+
+  .photoFooter__text h3 {
+    font-size: var(--text-base);
+  }
+
+  .photoFooter__description {
+    font-size: var(--text-sm);
+  }
+
+  .back-button {
+    top: 10px;
+    left: 10px;
+    width: 35px;
+    height: 35px;
+  }
+
+  .photo::after {
+    height: 60%;
+  }
+}
+
+/* Nuevo estilo para el botón de compartir */
+.share-button {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: transform 0.3s ease;
+}
+
+.share-button:hover {
+  transform: scale(1.1);
+}
+
+.share-button .material-symbols-outlined {
+  color: white;
+  font-size: var(--text-lg);
+}
+
+/* Márgenes solo en desktop */
+@media (min-width: 769px) {
+  .app__photos {
+    height: calc(100vh - 80px);
+    margin: 40px 0;
+  }
+
+  .photo {
+    height: calc(100vh - 80px);
+  }
+}
+</style>
+
+<script>
+// Función para compartir
+function shareContent(title, text, url) {
+  if (navigator.share) {
+    navigator.share({
+      title: title,
+      text: text,
+      url: url
+    })
+    .catch((error) => console.log('Error sharing:', error));
+  } else {
+    // Fallback: Copiar al portapapeles
+    const dummy = document.createElement('input');
+    document.body.appendChild(dummy);
+    dummy.value = url;
+    dummy.select();
+    document.execCommand('copy');
+    document.body.removeChild(dummy);
+    alert('¡Enlace copiado al portapapeles!');
+  }
+}
+
+// Agregar event listeners a los botones de compartir
+document.querySelectorAll('.share-button').forEach((button) => {
+  button.addEventListener('click', (e) => {
+    e.preventDefault();
+    const photo = button.closest('.photo');
+    const title = photo.querySelector('h3').textContent;
+    const description = photo.querySelector('.photoFooter__description').textContent;
+    const link = photo.querySelector('a').href;
+    
+    shareContent(title, description, link);
+  });
+});
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" /> 
