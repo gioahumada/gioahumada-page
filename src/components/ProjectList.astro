@@ -13,14 +13,22 @@ projects.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
         <a href={`/projects/${project.slug}`} class="project-link">
           <div class="project-media">
             {project.data.media.type === 'video' ? (
-              <video 
-                poster={project.data.media.thumbnail}
-                muted
-                loop
-                playsinline
-              >
-                <source src={project.data.media.url} type="video/mp4" />
-              </video>
+              <>
+                <img 
+                  src={project.data.media.thumbnail} 
+                  alt={project.data.title} 
+                  class="thumbnail"
+                />
+                <video 
+                  class="video-player"
+                  poster={project.data.media.thumbnail}
+                  muted
+                  loop
+                  playsinline
+                >
+                  <source src={project.data.media.url} type="video/mp4" />
+                </video>
+              </>
             ) : (
               <img src={project.data.media.url} alt={project.data.title} />
             )}
@@ -115,23 +123,40 @@ projects.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
   border-radius: 1rem;
 }
 
-/* Hover effect para videos */
-.project-card:hover video {
-  play;
+.video-player {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.thumbnail {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.project-card:hover .video-player {
+  opacity: 1;
+}
+
+.project-card:hover .thumbnail {
+  opacity: 0;
 }
 </style>
 
 <script>
-// Iniciar reproducción de video al hacer hover
 document.querySelectorAll('.project-card').forEach(card => {
+  const video = card.querySelector('video');
+  
   card.addEventListener('mouseenter', () => {
-    const video = card.querySelector('video');
-    if (video) video.play();
+    if (video) {
+      video.play();
+    }
   });
   
   card.addEventListener('mouseleave', () => {
-    const video = card.querySelector('video');
-    if (video) video.pause();
+    if (video) {
+      video.pause();
+      video.currentTime = 0;
+    }
   });
 });
 </script> 

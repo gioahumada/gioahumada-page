@@ -4,10 +4,10 @@ description: "A simple GUI for Ollama"
 media: 
   type: "video"
   url: "/videos/STG_vSnap.mp4"
-  thumbnail: "/videos/STG_vSnap.mp4"
+  thumbnail: "/images/ollamagui.png"
 date: 2024-03-20
-tags: ["React", "Node.js"]
+tags: ["CSS", "JavaScript", "WIP"]
 featured: true
 ---
 
-# Hola, soy Giovanni Ahumada
+# Work in Progress

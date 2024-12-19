@@ -3,11 +3,40 @@
 :root {
   --primary-color: #333;
   --background-color: #fff;
-  --accent-color: #0077ff;
+  --accent-color: #000;
   --text-xs: 0.75rem;    /* 12px */
   --text-sm: 0.8125rem;  /* 13px */
   --text-base: 0.875rem; /* 14px */
   --text-lg: 1rem;       /* 16px */
+  
+  /* Añadimos variables para animaciones */
+  --animation-duration: 0.8s;
+  --animation-timing: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Clases de utilidad para animaciones */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn var(--animation-duration) var(--animation-timing) forwards;
+}
+
+.slide-up {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideUp var(--animation-duration) var(--animation-timing) forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 * {

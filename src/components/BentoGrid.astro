@@ -5,7 +5,11 @@ const featuredProjects = await getCollection('projects', ({ data }) => {
 });
 
 // Duplicar los proyectos para tener suficiente contenido
-const duplicatedProjects = [...featuredProjects, ...featuredProjects, ...featuredProjects];
+const duplicatedProjects = [
+  ...featuredProjects, 
+  ...featuredProjects, 
+  ...featuredProjects
+];
 
 // Separar los proyectos en dos filas
 const topRow = duplicatedProjects.filter((_, i) => i % 2 === 0);
@@ -15,57 +19,74 @@ const bottomRow = duplicatedProjects.filter((_, i) => i % 2 === 1);
 <section class="bento-container">
   <div class="scroll-container">
     <div class="row-wrapper top-row">
-      <div class="scroll-content">
+      <div class="scroll-content" id="topRow">
         {topRow.map((project) => (
           <a href={`/projects/${project.slug}`} class="bento-item">
-            {project.data.media.type === 'video' ? (
-              <div class="media-container">
-                <video 
-                  autoplay 
-                  muted 
-                  loop 
-                  playsinline
-                  poster={project.data.media.thumbnail}
-                  loading="eager"
-                  preload="auto"
-                  data-keepplaying="true"
-                >
-                  <source src={project.data.media.url} type="video/mp4" />
-                </video>
-              </div>
-            ) : (
-              <div class="media-container">
-                <img src={project.data.media.url} alt={project.data.title} loading="eager" />
-              </div>
-            )}
+            <div class="bento-media">
+              {project.data.media.type === 'video' ? (
+                <>
+                  <img 
+                    src={project.data.media.thumbnail} 
+                    alt={project.data.title} 
+                    class="thumbnail"
+                    loading="lazy"
+                  />
+                  <video 
+                    class="video-player"
+                    poster={project.data.media.thumbnail}
+                    muted
+                    loop
+                    playsinline
+                    preload="none"
+                  >
+                    <source src={project.data.media.url} type="video/mp4" />
+                  </video>
+                </>
+              ) : (
+                <img 
+                  src={project.data.media.url} 
+                  alt={project.data.title}
+                  loading="lazy" 
+                />
+              )}
+            </div>
           </a>
         ))}
       </div>
     </div>
+    
     <div class="row-wrapper bottom-row">
-      <div class="scroll-content">
+      <div class="scroll-content" id="bottomRow">
         {bottomRow.map((project) => (
           <a href={`/projects/${project.slug}`} class="bento-item">
-            {project.data.media.type === 'video' ? (
-              <div class="media-container">
-                <video 
-                  autoplay 
-                  muted 
-                  loop 
-                  playsinline
-                  poster={project.data.media.thumbnail}
-                  loading="eager"
-                  preload="auto"
-                  data-keepplaying="true"
-                >
-                  <source src={project.data.media.url} type="video/mp4" />
-                </video>
-              </div>
-            ) : (
-              <div class="media-container">
-                <img src={project.data.media.url} alt={project.data.title} loading="eager" />
-              </div>
-            )}
+            <div class="bento-media">
+              {project.data.media.type === 'video' ? (
+                <>
+                  <img 
+                    src={project.data.media.thumbnail} 
+                    alt={project.data.title} 
+                    class="thumbnail"
+                    loading="lazy"
+                  />
+                  <video 
+                    class="video-player"
+                    poster={project.data.media.thumbnail}
+                    muted
+                    loop
+                    playsinline
+                    preload="none"
+                  >
+                    <source src={project.data.media.url} type="video/mp4" />
+                  </video>
+                </>
+              ) : (
+                <img 
+                  src={project.data.media.url} 
+                  alt={project.data.title}
+                  loading="lazy" 
+                />
+              )}
+            </div>
           </a>
         ))}
       </div>
@@ -97,6 +118,22 @@ const bottomRow = duplicatedProjects.filter((_, i) => i % 2 === 1);
 .scroll-content {
   display: flex;
   gap: 0.75rem;
+  animation: scroll 30s linear infinite;
+  will-change: transform;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.33%);
+  }
+}
+
+/* Pausar la animación cuando el usuario hace hover */
+.scroll-content:hover {
+  animation-play-state: paused;
 }
 
 /* Ajustado el desplazamiento de la segunda fila */
@@ -118,16 +155,38 @@ const bottomRow = duplicatedProjects.filter((_, i) => i % 2 === 1);
   transform: scale(1.02);
 }
 
-.media-container {
+.bento-media {
+  position: relative;
   width: 100%;
   height: 100%;
 }
 
-.media-container img,
-.media-container video {
+.bento-media img,
+.bento-media video {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.video-player {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.thumbnail {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.bento-item:hover .video-player {
+  opacity: 1;
+}
+
+.bento-item:hover .thumbnail {
+  opacity: 0;
 }
 
 /* Responsive */
@@ -149,56 +208,61 @@ const bottomRow = duplicatedProjects.filter((_, i) => i % 2 === 1);
 </style>
 
 <script>
-// Mejor manejo de videos
+function duplicateContent() {
+  const topRow = document.getElementById('topRow');
+  const bottomRow = document.getElementById('bottomRow');
+  
+  if (topRow && bottomRow) {
+    // Duplicar el contenido varias veces para asegurar una transición suave
+    const topContent = topRow.innerHTML;
+    const bottomContent = bottomRow.innerHTML;
+    
+    // Duplicar 3 veces para asegurar suficiente contenido
+    topRow.innerHTML = topContent + topContent + topContent;
+    bottomRow.innerHTML = bottomContent + bottomContent + bottomContent;
+  }
+}
+
+// Reiniciar la animación cuando termine
+function handleAnimation() {
+  const contents = document.querySelectorAll('.scroll-content');
+  contents.forEach(content => {
+    content.addEventListener('animationend', () => {
+      content.style.animation = 'none';
+      content.offsetHeight; // Trigger reflow
+      content.style.animation = null;
+    });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  duplicateContent();
+  handleAnimation();
+});
+
+// Manejo optimizado de videos
 document.querySelectorAll('.bento-item').forEach(item => {
   const video = item.querySelector('video');
   
   if (video) {
-    // Precarga el video
-    video.preload = "auto";
+    let playTimeout;
     
-    // Mantiene el video cargado pero pausado
-    video.load();
-    
-    // Manejo de hover
     item.addEventListener('mouseenter', () => {
-      // Intenta reproducir varias veces si falla
-      const playPromise = video.play();
-      
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          setTimeout(() => {
-            video.play();
-          }, 50);
-        });
-      }
+      clearTimeout(playTimeout);
+      playTimeout = setTimeout(() => {
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {});
+        }
+      }, 100);
     });
 
     item.addEventListener('mouseleave', () => {
+      clearTimeout(playTimeout);
       video.pause();
-      // No reiniciamos el video al principio
-      // video.currentTime = 0;
-    });
-
-    // Si el video termina, reiniciarlo
-    video.addEventListener('ended', () => {
       video.currentTime = 0;
-      video.play();
-    });
-
-    // Manejar errores de carga
-    video.addEventListener('error', () => {
-      console.error('Error loading video:', video.src);
-      // Mostrar el thumbnail si hay error
-      if (video.poster) {
-        const img = document.createElement('img');
-        img.src = video.poster;
-        img.style.width = '100%';
-        img.style.height = '100%';
-        img.style.objectFit = 'cover';
-        video.parentNode.replaceChild(img, video);
-      }
     });
   }
 });
+</script> 
 </script> 

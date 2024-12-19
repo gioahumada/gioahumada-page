@@ -1,23 +1,35 @@
 ---
 import '../styles/header.css';
 ---
+
 <header class="header">
   <nav class="nav-container">
+    <button class="mobile-menu-button" aria-label="Menú" id="menuButton">
+      <span class="menu-icon">☰</span>
+    </button>
+    
     <div class="brand">
       <div class="logo-container">
-        <img src="/logo.png" alt="Logo" class="logo-image" />
+        <a href="/"><img src="/logo.png" alt="Logo" class="logo-image" /></a>
       </div>
       <div class="brand-text">
-        <h1 class="name">Tu Nombre</h1>
-        <p class="position">Desarrollador Frontend</p>
+        <h1 class="name">Giovanni Ahumada</h1>
+        <p class="position">Estudiante de Ingeniería Informática</p>
       </div>
     </div>
     
     <ul class="nav-links">
       <li><a href="/">Inicio</a></li>
       <li><a href="/photos">Fotografías</a></li>
-      <li><a href="/about">Nosotros</a></li>
-      <li><a href="/contact">Contacto</a></li>
     </ul>
   </nav>
-</header> 
+</header>
+
+<script>
+  const mobileMenuButton = document.querySelector('.mobile-menu-button');
+  const navLinks = document.querySelector('.nav-links');
+
+  mobileMenuButton?.addEventListener('click', () => {
+    navLinks?.classList.toggle('active');
+  });
+</script> 

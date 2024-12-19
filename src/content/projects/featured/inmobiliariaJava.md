@@ -4,34 +4,28 @@ description: "a CRUD made with Java"
 media: 
   type: "video"
   url: "/videos/STG_flash.mp4"
-  thumbnail: "/videos/STG_flash.mp4"
+  thumbnail: "/images/inmobiliaria.png"
 date: 2024-03-20
 tags: ["Java", "Maven"]
 featured: true
 ---
 
-# Inmobiliaria Java
+Este proyecto permite gestionar la venta de departamentos, incluyendo la administración de la demanda y los precios. A medida que la demanda aumenta, los precios también lo hacen, proporcionando una simulación realista del mercado inmobiliario.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+## ✨ Características
+- Gestión de ventas de departamentos.
+- Administración de demanda y precios.
+- Interfaz amigable y fácil de usar.
 
-## Características principales
+# 👥 Integrantes
+- [⎋ Bastian Mejias](https://github.com/bastianmejias)
+- [⎋ Patricio Hernandez](https://github.com/patriciohdez)
+- [⎋ Giovanni Ahumada](https://github.com/gioahumada)
 
-- Duis aute irure dolor in reprehenderit
-- Voluptate velit esse cillum dolore
-- Eu fugiat nulla pariatur
-- Excepteur sint occaecat cupidatat
+<br>
 
-### Tecnologías utilizadas
+---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vehicula ipsum a arcu cursus vitae congue mauris rhoncus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae.
+<br>
 
-## Detalles de implementación
-
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-
-### Resultados
-
-1. Nemo enim ipsam voluptatem
-2. Quia voluptas sit aspernatur
-3. Aut odit aut fugit
-4. Sed quia consequuntur
+- [⎋ Ver en GitHub](https://github.com/gioahumada/inmobiliariaJava)
