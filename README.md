@@ -1,47 +1,55 @@
-# Astro Starter Kit: Minimal
+# Giovanni Ahumada - Personal Portfolio
 
-```sh
-npm create astro@latest -- --template minimal
-```
+This is my personal website, built with [Astro](https://astro.build), where I showcase my projects and skills as a developer. The site is designed to be fast, accessible, and easy to maintain.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
+## Features
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+- **Modern Design**: Clean and modern interface with smooth animations
+- **Project Gallery**: Showcase of featured projects with BentoGrid and complete list
+- **Performance Optimized**: Built with Astro for fast and efficient loading
+- **Fully Responsive**: Adaptable design for all devices
+- **Easy to Maintain**: Content system based on Markdown for projects
 
-## 🚀 Project Structure
+## Technologies Used
 
-Inside of your Astro project, you'll see the following folders and files:
+- [Astro](https://astro.build) - Framework web moderno
+- HTML, CSS y JavaScript
+- Markdown para el contenido
+- Vercel para el despliegue
+
+## 📁 Proyect Structure
 
 ```text
 /
-├── public/
+├── public/              # Archivos estáticos (imágenes, favicon)
 ├── src/
-│   └── pages/
-│       └── index.astro
+│   ├── components/      # Componentes reutilizables
+│   ├── content/         # Contenido en Markdown (proyectos)
+│   ├── layouts/         # Plantillas de página
+│   ├── pages/           # Páginas del sitio
+│   └── styles/          # Estilos CSS
 └── package.json
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+##  Getting Started
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+1. Clone
+```bash
+git clone https://github.com/gioahumada/gioahumada-page.git
+```
 
-Any static assets, like images, can be placed in the `public/` directory.
+2. Install dependencies
+```bash
+npm install
+```
 
-## 🧞 Commands
+3. Init dev server
+```bash
+npm run dev
+```
 
-All commands are run from the root of the project, from a terminal:
+4. Open [http://localhost:4321](http://localhost:4321) in your browser
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## 📝 License
 
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.

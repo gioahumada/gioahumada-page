@@ -23,6 +23,13 @@ import ProjectList from '../components/ProjectList.astro';
     <div class="slide-up" style="animation-delay: 0.6s;">
       <ProjectList />
     </div>
+
+    <div class="repo-link-container slide-up" style="animation-delay: 0.8s;">
+      <br>
+      <p>¿Interesado en ver cómo está construida esta página? Revisa el <a href="https://github.com/gioahumada/gioahumada-page" target="_blank" rel="noopener noreferrer">repositorio en GitHub</a>.</p>
+      <br>
+      <br>
+    </div>
   </main>
 </Layout>
 
@@ -61,6 +68,24 @@ blockquote footer {
   font-size: var(--text-base);
   color: var(--text-2);
   font-style: normal;
+}
+
+.repo-link-container {
+  max-width: 800px;
+  margin: 4rem auto 2rem;
+  padding: 0 1rem;
+  text-align: center;
+  font-size: var(--text-base);
+}
+
+.repo-link-container a {
+  color: var(--primary-color);
+  text-decoration: underline;
+  transition: opacity 0.2s ease;
+}
+
+.repo-link-container a:hover {
+  opacity: 0.8;
 }
 
 @media (max-width: 768px) {
