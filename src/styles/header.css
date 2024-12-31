@@ -94,12 +94,16 @@
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0.5rem;
+  padding: .2rem; /* Aumentar el padding */
+  font-size: 20px; /* Aumentar el tamaño del icono */
 }
 
 @media (max-width: 768px) {
   .mobile-menu-button {
     display: block;
+    position: absolute; /* Posiciona el botón fuera del flujo del diseño */
+    left: 1rem; /* Ajusta la posición a la izquierda */
+    top: 1rem; /* Ajusta la posición hacia abajo */
   }
 
   .nav-links {
@@ -124,6 +128,15 @@
   .brand {
     flex: 1;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    text-align: center; /* Asegura que el texto esté centrado */
+    gap: 0;
+  }
+
+  .brand-text {
+    flex-direction: column;
+    align-items: center;
   }
 
   .position {
@@ -144,4 +157,4 @@
   .name {
     font-size: var(--text-sm);
   }
-} 
+}
