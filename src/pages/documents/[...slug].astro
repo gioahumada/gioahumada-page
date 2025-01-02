@@ -33,14 +33,14 @@ const formattedDate = new Date(document.data.date).toLocaleDateString('es-ES', {
           ))}
         </div>
       </div>
-      {document.data.image && (
+      <!-- {document.data.image && (
         <img src={document.data.image} alt={document.data.title} class="document-image" />
-      )}
+      )} -->
     </header>
 
-    <div class="document-description">
+    <!-- <div class="document-description">
       <p class="description-text">{document.data.description}</p>
-    </div>
+    </div> -->
 
     <div class="content">
       <Content />
@@ -176,8 +176,7 @@ time {
 }
 
 .content :global(code) {
-  background: #f4f4f4;
-  padding: 0.2rem 0.4rem;
+padding: 0.2rem 0.4rem;
   border-radius: 0.25rem;
   font-size: var(--text-sm);
 }
@@ -197,6 +196,10 @@ time {
   border-radius: 0.5rem;
   margin: 1.5rem auto;
   display: block;
+}
+
+.content[data-astro-cid-4hvc765s] code {
+    background-color: navajowhite;
 }
 
 
