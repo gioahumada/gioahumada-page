@@ -5,6 +5,7 @@
   z-index: 1000;
   backdrop-filter: blur(10px);
   animation: slideDown 0.5s var(--animation-timing);
+  overflow: visible;
 }
 
 @keyframes slideDown {
@@ -96,6 +97,9 @@
   cursor: pointer;
   padding: .2rem; /* Aumentar el padding */
   font-size: 20px; /* Aumentar el tamaño del icono */
+  color: #000 !important; /* Fuerza el color negro */
+  -webkit-appearance: none; /* Elimina estilos nativos de Safari */
+  appearance: none;
 }
 
 @media (max-width: 768px) {
@@ -108,8 +112,8 @@
 
   .nav-links {
     display: none;
-    position: fixed;
-    top: 60px;
+    position: absolute; /* Cambiado de fixed a absolute */
+    top: 100%; /* Ubicado al final del header */
     left: 0;
     right: 0;
     background: var(--background-color);
@@ -118,6 +122,7 @@
     align-items: center;
     gap: 1rem;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    z-index: 1000; /* Asegura visibilidad sobre otros elementos */
   }
 
   .nav-links.active {
