@@ -67,6 +67,41 @@ const photos = [
   </div>
 </CleanLayout>
 
+<script>
+  import { animate, stagger } from "motion";
+
+  // Premium easing
+  const smoothEasing = [0.16, 1, 0.3, 1];
+  const duration = 1.2;
+
+  // Initial state
+  const elements = [
+    ".back-button",
+    ".app__photos"
+  ];
+
+  elements.forEach(selector => {
+    document.querySelectorAll(selector).forEach(el => {
+      el.style.opacity = "0";
+      el.style.filter = "blur(10px)";
+      el.style.transform = "translateY(30px)";
+    });
+  });
+
+  // Animation sequence
+  animate(
+    ".back-button", 
+    { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" }, 
+    { duration: duration, easing: smoothEasing }
+  );
+
+  animate(
+    ".app__photos", 
+    { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" }, 
+    { delay: 0.2, duration: duration, easing: smoothEasing }
+  );
+</script>
+
 <style>
 /* Botón de regreso */
 .back-button {

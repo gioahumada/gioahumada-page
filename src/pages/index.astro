@@ -34,44 +34,64 @@ import ProjectList from '../components/ProjectList.astro';
 </Layout>
 
 <script>
-  import { animate, stagger, spring } from "motion";
+  import { animate, stagger } from "motion";
+
+  // Premium easing (Apple-like smooth deceleration)
+  const smoothEasing = [0.16, 1, 0.3, 1];
+  const duration = 1.2;
+
+  // Initial state for all animated elements
+  const elements = [
+    ".quote-container",
+    ".bento-wrapper",
+    ".section-divider",
+    ".project-card",
+    ".repo-link-container"
+  ];
+
+  // Hide elements immediately to prepare for animation
+  elements.forEach(selector => {
+    document.querySelectorAll(selector).forEach(el => {
+      el.style.opacity = "0";
+      el.style.filter = "blur(10px)";
+      el.style.transform = "translateY(30px)";
+    });
+  });
 
   // Animation sequence
-  const springTransition = { easing: spring({ stiffness: 100, damping: 15 }) };
-
   animate(
     ".quote-container", 
-    { opacity: [0, 1], transform: ["translateY(20px)", "translateY(0)"] }, 
-    { duration: 0.8, ...springTransition }
+    { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" }, 
+    { duration: duration, easing: smoothEasing }
   );
 
   animate(
     ".bento-wrapper", 
-    { opacity: [0, 1], transform: ["translateY(20px)", "translateY(0)"] }, 
-    { delay: 0.1, duration: 0.8, ...springTransition }
+    { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" }, 
+    { delay: 0.2, duration: duration, easing: smoothEasing }
   );
 
   animate(
     ".section-divider", 
-    { opacity: [0, 1], transform: ["translateY(20px)", "translateY(0)"] }, 
-    { delay: 0.2, duration: 0.8, ...springTransition }
+    { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" }, 
+    { delay: 0.3, duration: duration, easing: smoothEasing }
   );
 
-  // Stagger individual project cards
+  // Stagger individual project cards with a rich cascade
   animate(
     ".project-card", 
-    { opacity: [0, 1], transform: ["translateY(20px)", "translateY(0)"] }, 
+    { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" }, 
     { 
-      delay: stagger(0.1, { start: 0.3 }), 
-      duration: 0.6, 
-      ...springTransition 
+      delay: stagger(0.15, { start: 0.4 }), 
+      duration: duration, 
+      easing: smoothEasing 
     }
   );
 
   animate(
     ".repo-link-container", 
-    { opacity: [0, 1], transform: ["translateY(20px)", "translateY(0)"] }, 
-    { delay: 0.8, duration: 0.8, ...springTransition }
+    { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" }, 
+    { delay: 1.0, duration: duration, easing: smoothEasing }
   );
 </script>
 

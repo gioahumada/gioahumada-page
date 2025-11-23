@@ -9,7 +9,7 @@ documents.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 <Layout title="Documentos">
   <main>
-    <div class="quote-container fade-in">
+    <div class="quote-container">
         <blockquote>
           "En esta sección encontrarás documentos y guías que he creado para compartir conocimiento y experiencias. ¡Espero que te sean de utilidad!"
         </blockquote>
@@ -39,6 +39,45 @@ documents.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
     </section>
   </main>
 </Layout>
+
+<script>
+  import { animate, stagger } from "motion";
+
+  // Premium easing
+  const smoothEasing = [0.16, 1, 0.3, 1];
+  const duration = 1.2;
+
+  // Initial state
+  const elements = [
+    ".quote-container",
+    ".document-card"
+  ];
+
+  elements.forEach(selector => {
+    document.querySelectorAll(selector).forEach(el => {
+      el.style.opacity = "0";
+      el.style.filter = "blur(10px)";
+      el.style.transform = "translateY(30px)";
+    });
+  });
+
+  // Animation sequence
+  animate(
+    ".quote-container", 
+    { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" }, 
+    { duration: duration, easing: smoothEasing }
+  );
+
+  animate(
+    ".document-card", 
+    { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" }, 
+    { 
+      delay: stagger(0.15, { start: 0.2 }), 
+      duration: duration, 
+      easing: smoothEasing 
+    }
+  );
+</script>
 
 <style>
 .documents-container {

@@ -31,13 +31,7 @@
     
     <div class="social-container">
       <button class="nav-item social-trigger" aria-label="Redes Sociales" id="socialTrigger">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="18" cy="5" r="3"></circle>
-          <circle cx="6" cy="12" r="3"></circle>
-          <circle cx="18" cy="19" r="3"></circle>
-          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-          <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-        </svg>
+        <img src="/logo.png" alt="Perfil" class="profile-photo" />
       </button>
       
       <div class="social-menu" id="socialMenu">
@@ -56,19 +50,40 @@
 </nav>
 
 <script>
+  import { animate } from "motion";
+
   const socialTrigger = document.getElementById('socialTrigger');
   const socialMenu = document.getElementById('socialMenu');
+  const profilePhoto = socialTrigger?.querySelector('.profile-photo');
   
   // Toggle menu on click
   socialTrigger?.addEventListener('click', (e) => {
     e.stopPropagation();
-    socialMenu?.classList.toggle('active');
+    const isActive = socialMenu?.classList.contains('active');
+    
+    if (isActive) {
+      socialMenu?.classList.remove('active');
+      // Rotate back to 0
+      if (profilePhoto) {
+        animate(profilePhoto, { rotate: 0 }, { duration: 0.4, easing: [0.16, 1, 0.3, 1] });
+      }
+    } else {
+      socialMenu?.classList.add('active');
+      // Rotate to 180
+      if (profilePhoto) {
+        animate(profilePhoto, { rotate: 180 }, { duration: 0.4, easing: [0.16, 1, 0.3, 1] });
+      }
+    }
   });
 
   // Close menu when clicking outside
   document.addEventListener('click', (e) => {
     if (socialMenu?.classList.contains('active') && !socialTrigger?.contains(e.target as Node) && !socialMenu?.contains(e.target as Node)) {
       socialMenu.classList.remove('active');
+      // Rotate back to 0
+      if (profilePhoto) {
+        animate(profilePhoto, { rotate: 0 }, { duration: 0.4, easing: [0.16, 1, 0.3, 1] });
+      }
     }
   });
 </script>
@@ -171,6 +186,14 @@
     width: 20px;
     height: 20px;
     stroke-width: 2px;
+  }
+
+  .profile-photo {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
   }
 
   .separator {
