@@ -1,0 +1,283 @@
+---
+---
+<nav class="bottom-nav-container">
+  <div class="glass-dock">
+    <a href="/" class="nav-item" aria-label="Inicio">
+      <span class="tooltip">Inicio</span>
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+      </svg>
+    </a>
+    <a href="/documents" class="nav-item" aria-label="Documentos">
+      <span class="tooltip">Documentos</span>
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+        <polyline points="14 2 14 8 20 8"></polyline>
+        <line x1="16" y1="13" x2="8" y2="13"></line>
+        <line x1="16" y1="17" x2="8" y2="17"></line>
+        <polyline points="10 9 9 9 8 9"></polyline>
+      </svg>
+    </a>
+    <a href="/photos" class="nav-item" aria-label="Fotografías">
+      <span class="tooltip">Fotografías</span>
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+        <circle cx="12" cy="13" r="4"></circle>
+      </svg>
+    </a>
+    
+    <div class="separator"></div>
+    
+    <div class="social-container">
+      <button class="nav-item social-trigger" aria-label="Redes Sociales" id="socialTrigger">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="18" cy="5" r="3"></circle>
+          <circle cx="6" cy="12" r="3"></circle>
+          <circle cx="18" cy="19" r="3"></circle>
+          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+          <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+        </svg>
+      </button>
+      
+      <div class="social-menu" id="socialMenu">
+        <a href="https://x.com/Rockjaj" target="_blank" rel="noopener noreferrer" class="social-item">
+          <span>X</span>
+        </a>
+        <a href="https://www.instagram.com/gio.ahumada1/" target="_blank" rel="noopener noreferrer" class="social-item">
+          <span>Instagram</span>
+        </a>
+        <a href="https://www.linkedin.com/in/gioahumada/" target="_blank" rel="noopener noreferrer" class="social-item">
+          <span>LinkedIn</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const socialTrigger = document.getElementById('socialTrigger');
+  const socialMenu = document.getElementById('socialMenu');
+  
+  // Toggle menu on click
+  socialTrigger?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    socialMenu?.classList.toggle('active');
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener('click', (e) => {
+    if (socialMenu?.classList.contains('active') && !socialTrigger?.contains(e.target as Node) && !socialMenu?.contains(e.target as Node)) {
+      socialMenu.classList.remove('active');
+    }
+  });
+</script>
+
+<style>
+  .bottom-nav-container {
+    position: fixed;
+    bottom: 2rem;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    z-index: 9999;
+    pointer-events: none;
+  }
+
+  .glass-dock {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem; /* Reduced gap */
+    padding: 0.5rem 1rem; /* Reduced padding */
+    
+    /* Improved Liquid Glass Effect */
+    background: rgba(255, 255, 255, 0.4); /* More transparent */
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    
+    border-radius: 9999px;
+    
+    /* Refined borders and shadows for glass realism */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 
+      0 8px 32px 0 rgba(31, 38, 135, 0.15),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+      
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6rem;
+    color: #4b5563;
+    border-radius: 50%;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    position: relative;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  .nav-item:hover {
+    color: #000;
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  /* Tooltip Styles */
+  .tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px) scale(0.9);
+    background-color: #000;
+    color: #fff;
+    padding: 0.25rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    margin-bottom: 0.75rem;
+    pointer-events: none;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Triangle for tooltip */
+  .tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 4px;
+    border-style: solid;
+    border-color: #000 transparent transparent transparent;
+  }
+
+  .nav-item:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+
+  .nav-item svg {
+    /* Smaller icons */
+    width: 20px;
+    height: 20px;
+    stroke-width: 2px;
+  }
+
+  .separator {
+    width: 1px;
+    height: 20px;
+    background: rgba(0, 0, 0, 0.1);
+    margin: 0 0.25rem;
+  }
+
+  /* Social Menu Container */
+  .social-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Social Menu Popup */
+  .social-menu {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px) scale(0.95);
+    margin-bottom: 1rem;
+    
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 16px;
+    padding: 0.5rem;
+    
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    min-width: 140px;
+    
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    
+    box-shadow: 
+      0 10px 40px -10px rgba(0,0,0,0.2),
+      inset 0 0 0 1px rgba(255,255,255,0.2);
+  }
+
+  .social-menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+
+  .social-item {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    color: #333;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: background-color 0.2s;
+  }
+
+  .social-item:hover {
+    background: rgba(255, 255, 255, 0.4);
+    color: #000;
+  }
+
+  /* Dark mode support */
+  @media (prefers-color-scheme: dark) {
+    .glass-dock {
+      background: rgba(0, 0, 0, 0.4);
+      border-color: rgba(255, 255, 255, 0.1);
+      box-shadow: 
+        0 8px 32px 0 rgba(0, 0, 0, 0.3),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-item {
+      color: #9ca3af;
+    }
+
+    .nav-item:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .separator {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .social-menu {
+      background: rgba(20, 20, 20, 0.6);
+      border-color: rgba(255, 255, 255, 0.1);
+      box-shadow: 
+        0 10px 40px -10px rgba(0,0,0,0.5),
+        inset 0 0 0 1px rgba(255,255,255,0.05);
+    }
+    
+    .social-item {
+      color: #e5e5e5;
+    }
+    
+    .social-item:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+  }
+</style>

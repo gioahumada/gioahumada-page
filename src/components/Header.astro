@@ -2,12 +2,8 @@
 import '../styles/header.css';
 ---
 
-<header class="header">
+<header class="header" id="main-header">
   <nav class="nav-container">
-    <button class="mobile-menu-button" aria-label="Menú" id="menuButton">
-      <span class="menu-icon">☰</span>
-    </button>
-    
     <div class="brand">
       <div class="logo-container">
         <a href="/"><img src="/logo.png" alt="Logo" class="logo-image" /></a>
@@ -17,20 +13,21 @@ import '../styles/header.css';
         <p class="position">Estudiante de Ingeniería Informática</p>
       </div>
     </div>
-    
-    <ul class="nav-links">
-      <li><a href="/">Inicio</a></li>
-      <li><a href="/documents">Documentos</a></li>
-      <li><a href="/photos">Fotografías</a></li>
-    </ul>
   </nav>
 </header>
 
 <script>
-  const mobileMenuButton = document.querySelector('.mobile-menu-button');
-  const navLinks = document.querySelector('.nav-links');
+  const header = document.getElementById('main-header');
+  
+  const handleScroll = () => {
+    if (window.scrollY > 50) {
+      header?.classList.add('scrolled');
+    } else {
+      header?.classList.remove('scrolled');
+    }
+  };
 
-  mobileMenuButton?.addEventListener('click', () => {
-    navLinks?.classList.toggle('active');
-  });
-</script> 
+  window.addEventListener('scroll', handleScroll);
+  // Check initial state
+  handleScroll();
+</script>
