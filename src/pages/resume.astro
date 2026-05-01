@@ -1,0 +1,311 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const projects = await getCollection('projects');
+// Ordenar por fecha
+projects.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<Layout title="Resumé - Giovanni Ahumada">
+  <main class="resume-container">
+    <div class="resume-header">
+      <div class="header-content">
+        <h1>Giovanni Ahumada</h1>
+        <p class="role">Estudiante de Ingeniería Informática</p>
+        <p class="school">Pontificia Universidad Católica de Valparaíso</p>
+        <div class="contact-links">
+          <a href="mailto:gioahumada.t@gmail.com">gioahumada.t@gmail.com</a>
+          <span>&bull;</span>
+          <a href="https://www.linkedin.com/in/gioahumada/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <span>&bull;</span>
+          <a href="https://github.com/gioahumada" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+      </div>
+      <button class="export-btn" id="printBtn" aria-label="Exportar a PDF">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        <span>Exportar a PDF</span>
+      </button>
+    </div>
+
+    <div class="resume-section">
+      <h2>Perfil Profesional</h2>
+      <p class="profile-text">
+        Estudiante de Ingeniería Informática apasionado por el desarrollo de software, la creación de interfaces dinámicas y las tecnologías modernas web. Compromiso con el aprendizaje continuo y la búsqueda de soluciones creativas a problemas complejos.
+      </p>
+    </div>
+
+    <div class="resume-section">
+      <h2>Proyectos Destacados</h2>
+      <div class="projects-list">
+        {projects.map((project) => (
+          <div class="resume-project">
+            <div class="project-header">
+              <h3>
+                <a href={project.data.link || `/projects/${project.slug}`} target="_blank">{project.data.title}</a>
+              </h3>
+              <span class="project-date">
+                {project.data.date.toLocaleDateString('es-ES', { year: 'numeric', month: 'short' })}
+              </span>
+            </div>
+            <p class="project-desc">{project.data.description}</p>
+            <div class="project-tags">
+              {project.data.tags.map((tag) => (
+                <span class="badge">{tag}</span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  import { animate, stagger } from "motion";
+
+  const printBtn = document.getElementById('printBtn');
+  if (printBtn) {
+    printBtn.addEventListener('click', () => {
+      window.print();
+    });
+  }
+
+  // Animation sequence for resume items
+  const dur = 0.8;
+  const ease = [0.16, 1, 0.3, 1];
+
+  document.querySelectorAll('.resume-container > div').forEach(el => {
+    (el as HTMLElement).style.opacity = '0';
+    (el as HTMLElement).style.transform = 'translateY(20px)';
+  });
+
+  animate(
+    ".resume-container > div",
+    { opacity: 1, transform: "translateY(0)" },
+    { delay: stagger(0.15), duration: dur, easing: ease }
+  );
+</script>
+
+<style>
+  .resume-container {
+    max-width: 800px;
+    margin: 4rem auto;
+    padding: 2rem;
+    background: var(--background-color);
+    border-radius: 1rem;
+  }
+
+  .resume-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 3rem;
+    border-bottom: 2px solid rgba(0,0,0,0.05);
+    padding-bottom: 2rem;
+  }
+
+  .header-content h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+  }
+
+  .header-content p {
+    margin: 0.25rem 0;
+    color: var(--text-2);
+  }
+
+  .role {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--primary-color) !important;
+  }
+
+  .contact-links {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-2);
+  }
+
+  .contact-links a {
+    color: var(--text-2);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .contact-links a:hover {
+    color: var(--primary-color);
+  }
+
+  .export-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background: var(--primary-color);
+    color: var(--background-color);
+    border: none;
+    border-radius: 9999px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .export-btn:hover {
+    opacity: 0.9;
+    transform: scale(1.02);
+  }
+
+  .resume-section {
+    margin-bottom: 3rem;
+  }
+
+  .resume-section h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+  }
+
+  .profile-text {
+    line-height: 1.7;
+    color: var(--text-2);
+  }
+
+  .projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .resume-project {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .project-header h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .project-header h3 a {
+    color: var(--primary-color);
+    text-decoration: none;
+  }
+
+  .project-header h3 a:hover {
+    text-decoration: underline;
+  }
+
+  .project-date {
+    font-size: 0.85rem;
+    color: var(--text-2);
+  }
+
+  .project-desc {
+    color: var(--text-2);
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .badge {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    background: rgba(0,0,0,0.05);
+    border-radius: 9999px;
+    color: var(--text-2);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .resume-header {
+      border-bottom-color: rgba(255,255,255,0.1);
+    }
+    .badge {
+      background: rgba(255,255,255,0.1);
+      color: #ccc;
+    }
+    .export-btn {
+      background: #fff;
+      color: #000;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .resume-header {
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .export-btn {
+      width: 100%;
+      justify-content: center;
+    }
+    .project-header {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .resume-container {
+      margin: 2rem 1rem;
+      padding: 1.5rem;
+    }
+  }
+
+  @media print {
+    @page { margin: 1cm; }
+    body, html {
+      background: white !important;
+      color: black !important;
+    }
+    .resume-container {
+      margin: 0 !important;
+      padding: 0 !important;
+      max-width: 100% !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+    .export-btn, .bottom-nav-container, .header, .nav-container {
+      display: none !important;
+    }
+    * {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    /* Ensure dark text on printing for readability */
+    .header-content h1, .role, .resume-section h2, .project-header h3 a {
+      color: black !important;
+    }
+    .header-content p, .contact-links, .profile-text, .project-desc, .project-date {
+      color: #333 !important;
+    }
+    .badge {
+      background: #eee !important;
+      color: #333 !important;
+      border: 1px solid #ddd;
+    }
+    a {
+      text-decoration: none !important;
+    }
+  }
+</style>
