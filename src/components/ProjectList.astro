@@ -143,20 +143,21 @@ projects.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 </style>
 
 <script>
-document.querySelectorAll('.project-card').forEach(card => {
-  const video = card.querySelector('video');
-  
-  card.addEventListener('mouseenter', () => {
-    if (video) {
+import { onPageLoad } from "../lib/spa-lifecycle";
+
+onPageLoad(() => {
+  document.querySelectorAll<HTMLElement>('.project-card').forEach(card => {
+    const video = card.querySelector('video');
+    if (!video) return;
+
+    card.addEventListener('mouseenter', () => {
       video.play();
-    }
-  });
-  
-  card.addEventListener('mouseleave', () => {
-    if (video) {
+    });
+
+    card.addEventListener('mouseleave', () => {
       video.pause();
       video.currentTime = 0;
-    }
+    });
   });
 });
-</script> 
+</script>

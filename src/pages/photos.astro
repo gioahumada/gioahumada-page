@@ -345,44 +345,47 @@ const photos = [
 </style>
 
 <script>
-// Función para compartir
-function shareContent(title: string, text: string, url: string) {
-  if (navigator.share) {
-    navigator.share({
-      title: title,
-      text: text,
-      url: url
-    })
-    .catch((error) => console.log('Error sharing:', error));
-  } else {
-    // Fallback: Copiar al portapapeles
-    const dummy = document.createElement('input');
-    document.body.appendChild(dummy);
-    dummy.value = url;
-    dummy.select();
-    document.execCommand('copy');
-    document.body.removeChild(dummy);
-    alert('¡Enlace copiado al portapapeles!');
-  }
-}
+  import { onPageLoad } from "../lib/spa-lifecycle";
 
-// Agregar event listeners a los botones de compartir
-document.querySelectorAll('.share-button').forEach((button) => {
-  button.addEventListener('click', (e) => {
-    e.preventDefault();
-    const photo = button.closest('.photo');
-    if (!photo) return;
-    const titleEl = photo.querySelector('h3');
-    const descEl = photo.querySelector('.photoFooter__description');
-    const linkEl = photo.querySelector('a');
-    if (!titleEl || !descEl || !linkEl) return;
-    const title = titleEl.textContent;
-    const description = descEl.textContent;
-    const link = linkEl.getAttribute('href');
-    
-    shareContent(title || '', description || '', link || '');
+  function shareContent(title: string, text: string, url: string) {
+    if (navigator.share) {
+      navigator.share({
+        title: title,
+        text: text,
+        url: url
+      })
+      .catch((error) => console.log('Error sharing:', error));
+    } else {
+      const dummy = document.createElement('input');
+      document.body.appendChild(dummy);
+      dummy.value = url;
+      dummy.select();
+      document.execCommand('copy');
+      document.body.removeChild(dummy);
+      alert('¡Enlace copiado al portapapeles!');
+    }
+  }
+
+  onPageLoad(() => {
+    const handleClick = (e: MouseEvent) => {
+      const button = (e.target as Element).closest('.share-button') as HTMLElement | null;
+      if (!button) return;
+      e.preventDefault();
+      const photo = button.closest('.photo');
+      if (!photo) return;
+      const titleEl = photo.querySelector('h3');
+      const descEl = photo.querySelector('.photoFooter__description');
+      const linkEl = photo.querySelector('a');
+      if (!titleEl || !descEl || !linkEl) return;
+      shareContent(
+        titleEl.textContent || '',
+        descEl.textContent || '',
+        linkEl.getAttribute('href') || ''
+      );
+    };
+    document.addEventListener('click', handleClick);
+    return () => document.removeEventListener('click', handleClick);
   });
-});
 </script>
 
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />

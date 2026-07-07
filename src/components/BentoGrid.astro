@@ -207,60 +207,46 @@ const bottomRow = duplicatedProjects.filter((_, i) => i % 2 === 1);
 </style>
 
 <script>
-function duplicateContent() {
+import { onPageLoad } from "../lib/spa-lifecycle";
+
+onPageLoad(() => {
   const topRow = document.getElementById('topRow');
   const bottomRow = document.getElementById('bottomRow');
-  
   if (topRow && bottomRow) {
-    // Duplicar el contenido varias veces para asegurar una transición suave
     const topContent = topRow.innerHTML;
     const bottomContent = bottomRow.innerHTML;
-    
-    // Duplicar 3 veces para asegurar suficiente contenido
     topRow.innerHTML = topContent + topContent + topContent;
     bottomRow.innerHTML = bottomContent + bottomContent + bottomContent;
   }
-}
 
-// Reiniciar la animación cuando termine
-function handleAnimation() {
-  const contents = document.querySelectorAll('.scroll-content');
-  contents.forEach(content => {
+  document.querySelectorAll<HTMLElement>('.scroll-content').forEach(content => {
     content.addEventListener('animationend', () => {
-      (content as HTMLElement).style.animation = 'none';
-      (content as HTMLElement).offsetHeight; // Trigger reflow
-      (content as HTMLElement).style.animation = '';
+      content.style.animation = 'none';
+      content.offsetHeight;
+      content.style.animation = '';
     });
   });
-}
 
-document.addEventListener('DOMContentLoaded', () => {
-  duplicateContent();
-  handleAnimation();
-});
+  document.querySelectorAll<HTMLElement>('.bento-item').forEach(item => {
+    const video = item.querySelector('video');
+    if (!video) return;
 
-// Manejo optimizado de videos
-document.querySelectorAll('.bento-item').forEach(item => {
-  const video = item.querySelector('video');
-  
-  if (video) {
     let playTimeout: ReturnType<typeof setTimeout>;
-    
-    item.addEventListener('mouseenter', () => {
+    const onEnter = () => {
       clearTimeout(playTimeout);
       playTimeout = setTimeout(() => {
         const playPromise = video.play();
-        if (playPromise !== undefined) {
-          playPromise.catch(() => {});
-        }
+        if (playPromise !== undefined) playPromise.catch(() => {});
       }, 100);
-    });
-
-    item.addEventListener('mouseleave', () => {
+    };
+    const onLeave = () => {
       clearTimeout(playTimeout);
       video.pause();
       video.currentTime = 0;
-    });
-  }
+    };
+
+    item.addEventListener('mouseenter', onEnter);
+    item.addEventListener('mouseleave', onLeave);
+  });
 });
 </script> 

@@ -66,12 +66,17 @@ projects.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 </Layout>
 
 <script>
-  const printBtn = document.getElementById('printBtn');
-  if (printBtn) {
-    printBtn.addEventListener('click', () => {
-      window.print();
-    });
-  }
+  import { onPageLoad } from "../lib/spa-lifecycle";
+
+  onPageLoad(() => {
+    const handleClick = (e: MouseEvent) => {
+      if ((e.target as Element).closest('#printBtn')) {
+        window.print();
+      }
+    };
+    document.addEventListener('click', handleClick);
+    return () => document.removeEventListener('click', handleClick);
+  });
 </script>
 
 <style>

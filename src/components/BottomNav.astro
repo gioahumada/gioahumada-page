@@ -60,37 +60,39 @@
 
 <script>
   import { animate } from "motion";
+  import { onPageLoad } from "../lib/spa-lifecycle";
 
-  const socialTrigger = document.getElementById('socialTrigger');
-  const socialMenu = document.getElementById('socialMenu');
-  const profilePhoto = socialTrigger?.querySelector('.profile-photo') as HTMLElement | null;
-  
-  // Toggle menu on click
-  socialTrigger?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const isActive = socialMenu?.classList.contains('active');
-    
-    if (isActive) {
-      socialMenu?.classList.remove('active');
-      if (profilePhoto) {
-        animate(profilePhoto, { rotate: 0 } as any, { duration: 0.4, ease: [0.16, 1, 0.3, 1] } as any);
-      }
-    } else {
-      socialMenu?.classList.add('active');
-      if (profilePhoto) {
-        animate(profilePhoto, { rotate: 180 } as any, { duration: 0.4, ease: [0.16, 1, 0.3, 1] } as any);
-      }
-    }
-  });
+  const EASE = [0.16, 1, 0.3, 1] as const;
 
-  // Close menu when clicking outside
-  document.addEventListener('click', (e) => {
-    if (socialMenu?.classList.contains('active') && !socialTrigger?.contains(e.target as Node) && !socialMenu?.contains(e.target as Node)) {
-      socialMenu.classList.remove('active');
-      if (profilePhoto) {
-        animate(profilePhoto, { rotate: 0 } as any, { duration: 0.4, ease: [0.16, 1, 0.3, 1] } as any);
-      }
+  onPageLoad(() => {
+    function setMenuState(open: boolean) {
+      const socialMenu = document.getElementById('socialMenu');
+      const profilePhoto = document.querySelector<HTMLElement>('#socialTrigger .profile-photo');
+      if (!socialMenu || !profilePhoto) return;
+      socialMenu.classList.toggle('active', open);
+      animate(profilePhoto, { rotate: open ? 180 : 0 } as any, { duration: 0.4, ease: EASE as any } as any);
     }
+
+    const handleClick = (e: MouseEvent) => {
+      const target = e.target as Element;
+      const insideTrigger = target.closest('#socialTrigger');
+      const insideMenu = target.closest('#socialMenu');
+
+      if (insideTrigger) {
+        e.stopPropagation();
+        const socialMenu = document.getElementById('socialMenu');
+        setMenuState(!socialMenu?.classList.contains('active'));
+        return;
+      }
+
+      const socialMenu = document.getElementById('socialMenu');
+      if (socialMenu?.classList.contains('active') && !insideMenu) {
+        setMenuState(false);
+      }
+    };
+
+    document.addEventListener('click', handleClick);
+    return () => document.removeEventListener('click', handleClick);
   });
 </script>
 
