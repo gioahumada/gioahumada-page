@@ -67,9 +67,9 @@ const { title, description = "Portfolio personal y proyectos" } = Astro.props;
     
     if (target) {
       animate(
-        target,
-        { scale: [1, 0.95, 1] },
-        { duration: 0.2, easing: "ease-in-out" }
+        target as Element,
+        { scale: [1, 0.95, 1] } as any,
+        { duration: 0.2, ease: "ease-in-out" } as any
       );
     }
   });

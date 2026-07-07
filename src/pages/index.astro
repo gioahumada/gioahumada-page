@@ -52,46 +52,46 @@ import ProjectList from '../components/ProjectList.astro';
   // Hide elements immediately to prepare for animation
   elements.forEach(selector => {
     document.querySelectorAll(selector).forEach(el => {
-      el.style.opacity = "0";
-      el.style.filter = "blur(10px)";
-      el.style.transform = "translateY(30px)";
+      (el as HTMLElement).style.opacity = "0";
+      (el as HTMLElement).style.filter = "blur(10px)";
+      (el as HTMLElement).style.transform = "translateY(30px)";
     });
   });
 
   // Animation sequence
   animate(
     ".quote-container", 
-    { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" }, 
-    { duration: duration, easing: smoothEasing }
+    { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" } as any, 
+    { duration: duration, ease: smoothEasing } as any
   );
 
   animate(
     ".bento-wrapper", 
-    { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" }, 
-    { delay: 0.2, duration: duration, easing: smoothEasing }
+    { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" } as any, 
+    { delay: 0.2, duration: duration, ease: smoothEasing } as any
   );
 
   animate(
     ".section-divider", 
-    { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" }, 
-    { delay: 0.3, duration: duration, easing: smoothEasing }
+    { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" } as any, 
+    { delay: 0.3, duration: duration, ease: smoothEasing } as any
   );
 
   // Stagger individual project cards with a rich cascade
   animate(
     ".project-card", 
-    { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" }, 
+    { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" } as any, 
     { 
-      delay: stagger(0.15, { start: 0.4 }), 
+      delay: stagger(0.15, { start: 0.4 } as any), 
       duration: duration, 
-      easing: smoothEasing 
-    }
+      ease: smoothEasing 
+    } as any
   );
 
   animate(
     ".repo-link-container", 
-    { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" }, 
-    { delay: 1.0, duration: duration, easing: smoothEasing }
+    { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" } as any, 
+    { delay: 1.0, duration: duration, ease: smoothEasing } as any
   );
 </script>
 

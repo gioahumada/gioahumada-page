@@ -68,7 +68,7 @@ const photos = [
 </CleanLayout>
 
 <script>
-  import { animate, stagger } from "motion";
+  import { animate } from "motion";
 
   // Premium easing
   const smoothEasing = [0.16, 1, 0.3, 1];
@@ -82,23 +82,23 @@ const photos = [
 
   elements.forEach(selector => {
     document.querySelectorAll(selector).forEach(el => {
-      el.style.opacity = "0";
-      el.style.filter = "blur(10px)";
-      el.style.transform = "translateY(30px)";
+      (el as HTMLElement).style.opacity = "0";
+      (el as HTMLElement).style.filter = "blur(10px)";
+      (el as HTMLElement).style.transform = "translateY(30px)";
     });
   });
 
   // Animation sequence
   animate(
     ".back-button", 
-    { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" }, 
-    { duration: duration, easing: smoothEasing }
+    { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" } as any, 
+    { duration: duration, ease: smoothEasing } as any
   );
 
   animate(
     ".app__photos", 
-    { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" }, 
-    { delay: 0.2, duration: duration, easing: smoothEasing }
+    { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" } as any, 
+    { delay: 0.2, duration: duration, ease: smoothEasing } as any
   );
 </script>
 
@@ -381,7 +381,7 @@ const photos = [
 
 <script>
 // Función para compartir
-function shareContent(title, text, url) {
+function shareContent(title: string, text: string, url: string) {
   if (navigator.share) {
     navigator.share({
       title: title,
@@ -406,11 +406,16 @@ document.querySelectorAll('.share-button').forEach((button) => {
   button.addEventListener('click', (e) => {
     e.preventDefault();
     const photo = button.closest('.photo');
-    const title = photo.querySelector('h3').textContent;
-    const description = photo.querySelector('.photoFooter__description').textContent;
-    const link = photo.querySelector('a').href;
+    if (!photo) return;
+    const titleEl = photo.querySelector('h3');
+    const descEl = photo.querySelector('.photoFooter__description');
+    const linkEl = photo.querySelector('a');
+    if (!titleEl || !descEl || !linkEl) return;
+    const title = titleEl.textContent;
+    const description = descEl.textContent;
+    const link = linkEl.getAttribute('href');
     
-    shareContent(title, description, link);
+    shareContent(title || '', description || '', link || '');
   });
 });
 </script>

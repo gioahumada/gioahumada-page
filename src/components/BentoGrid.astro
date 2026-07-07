@@ -227,9 +227,9 @@ function handleAnimation() {
   const contents = document.querySelectorAll('.scroll-content');
   contents.forEach(content => {
     content.addEventListener('animationend', () => {
-      content.style.animation = 'none';
-      content.offsetHeight; // Trigger reflow
-      content.style.animation = null;
+      (content as HTMLElement).style.animation = 'none';
+      (content as HTMLElement).offsetHeight; // Trigger reflow
+      (content as HTMLElement).style.animation = '';
     });
   });
 }
@@ -244,7 +244,7 @@ document.querySelectorAll('.bento-item').forEach(item => {
   const video = item.querySelector('video');
   
   if (video) {
-    let playTimeout;
+    let playTimeout: ReturnType<typeof setTimeout>;
     
     item.addEventListener('mouseenter', () => {
       clearTimeout(playTimeout);

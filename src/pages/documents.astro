@@ -55,27 +55,27 @@ documents.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
   elements.forEach(selector => {
     document.querySelectorAll(selector).forEach(el => {
-      el.style.opacity = "0";
-      el.style.filter = "blur(10px)";
-      el.style.transform = "translateY(30px)";
+      (el as HTMLElement).style.opacity = "0";
+      (el as HTMLElement).style.filter = "blur(10px)";
+      (el as HTMLElement).style.transform = "translateY(30px)";
     });
   });
 
   // Animation sequence
   animate(
     ".quote-container", 
-    { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" }, 
-    { duration: duration, easing: smoothEasing }
+    { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" } as any, 
+    { duration: duration, ease: smoothEasing } as any
   );
 
   animate(
     ".document-card", 
-    { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" }, 
+    { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" } as any, 
     { 
-      delay: stagger(0.15, { start: 0.2 }), 
+      delay: stagger(0.15, { start: 0.2 } as any), 
       duration: duration, 
-      easing: smoothEasing 
-    }
+      ease: smoothEasing 
+    } as any
   );
 </script>
 

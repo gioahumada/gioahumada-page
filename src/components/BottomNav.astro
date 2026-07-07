@@ -63,7 +63,7 @@
 
   const socialTrigger = document.getElementById('socialTrigger');
   const socialMenu = document.getElementById('socialMenu');
-  const profilePhoto = socialTrigger?.querySelector('.profile-photo');
+  const profilePhoto = socialTrigger?.querySelector('.profile-photo') as HTMLElement | null;
   
   // Toggle menu on click
   socialTrigger?.addEventListener('click', (e) => {
@@ -72,15 +72,13 @@
     
     if (isActive) {
       socialMenu?.classList.remove('active');
-      // Rotate back to 0
       if (profilePhoto) {
-        animate(profilePhoto, { rotate: 0 }, { duration: 0.4, easing: [0.16, 1, 0.3, 1] });
+        animate(profilePhoto, { rotate: 0 } as any, { duration: 0.4, ease: [0.16, 1, 0.3, 1] } as any);
       }
     } else {
       socialMenu?.classList.add('active');
-      // Rotate to 180
       if (profilePhoto) {
-        animate(profilePhoto, { rotate: 180 }, { duration: 0.4, easing: [0.16, 1, 0.3, 1] });
+        animate(profilePhoto, { rotate: 180 } as any, { duration: 0.4, ease: [0.16, 1, 0.3, 1] } as any);
       }
     }
   });
@@ -89,9 +87,8 @@
   document.addEventListener('click', (e) => {
     if (socialMenu?.classList.contains('active') && !socialTrigger?.contains(e.target as Node) && !socialMenu?.contains(e.target as Node)) {
       socialMenu.classList.remove('active');
-      // Rotate back to 0
       if (profilePhoto) {
-        animate(profilePhoto, { rotate: 0 }, { duration: 0.4, easing: [0.16, 1, 0.3, 1] });
+        animate(profilePhoto, { rotate: 0 } as any, { duration: 0.4, ease: [0.16, 1, 0.3, 1] } as any);
       }
     }
   });

@@ -86,8 +86,8 @@ projects.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
   animate(
     ".resume-container > div",
-    { opacity: 1, transform: "translateY(0)" },
-    { delay: stagger(0.15), duration: dur, easing: ease }
+    { opacity: 1, transform: "translateY(0)" } as any,
+    { delay: stagger(0.15), duration: dur, ease: ease } as any
   );
 </script>
 
