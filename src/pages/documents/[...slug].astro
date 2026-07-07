@@ -1,17 +1,17 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 
 export async function getStaticPaths() {
   const documents = await getCollection('documents');
   return documents.map(document => ({
-    params: { slug: document.slug },
+    params: { slug: document.id },
     props: { document },
   }));
 }
 
 const { document } = Astro.props;
-const { Content } = await document.render();
+const { Content } = await render(document);
 
 // Formatear la fecha
 const formattedDate = new Date(document.data.date).toLocaleDateString('es-ES', {

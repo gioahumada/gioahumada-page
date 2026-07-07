@@ -10,7 +10,7 @@ projects.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
   <div class="projects-grid">
     {projects.map((project) => (
       <article class="project-card">
-        <a href={`/projects/${project.slug}`} class="project-link">
+        <a href={`/projects/${project.id}`} class="project-link">
           <div class="project-media">
             {project.data.media.type === 'video' ? (
               <>

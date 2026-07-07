@@ -46,7 +46,7 @@ projects.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
           <div class="resume-project">
             <div class="project-header">
               <h3>
-                <a href={project.data.link || `/projects/${project.slug}`} target="_blank">{project.data.title}</a>
+                <a href={project.data.link || `/projects/${project.id}`} target="_blank">{project.data.title}</a>
               </h3>
               <span class="project-date">
                 {project.data.date.toLocaleDateString('es-ES', { year: 'numeric', month: 'short' })}

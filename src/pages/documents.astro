@@ -19,7 +19,7 @@ documents.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
       <div class="documents-grid">
         {documents.map((document) => (
           <article class="document-card">
-            <a href={`/documents/${document.slug}`} class="document-link">
+            <a href={`/documents/${document.id}`} class="document-link">
               <div class="document-media">
                 <img src={document.data.image} alt={document.data.title} class="document-image" />
               </div>

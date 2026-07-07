@@ -1,8 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
-const featuredProjects = await getCollection('projects', ({ data }) => {
-  return data.featured === true;
-});
+const allProjects = await getCollection('projects');
+const featuredProjects = allProjects.filter(({ data }) => data.featured === true);
 
 // Duplicar los proyectos para tener suficiente contenido
 const duplicatedProjects = [
@@ -21,7 +20,7 @@ const bottomRow = duplicatedProjects.filter((_, i) => i % 2 === 1);
     <div class="row-wrapper top-row">
       <div class="scroll-content" id="topRow">
         {topRow.map((project) => (
-          <a href={`/projects/${project.slug}`} class="bento-item">
+          <a href={`/projects/${project.id}`} class="bento-item">
             <div class="bento-media">
               {project.data.media.type === 'video' ? (
                 <>
@@ -58,7 +57,7 @@ const bottomRow = duplicatedProjects.filter((_, i) => i % 2 === 1);
     <div class="row-wrapper bottom-row">
       <div class="scroll-content" id="bottomRow">
         {bottomRow.map((project) => (
-          <a href={`/projects/${project.slug}`} class="bento-item">
+          <a href={`/projects/${project.id}`} class="bento-item">
             <div class="bento-media">
               {project.data.media.type === 'video' ? (
                 <>
