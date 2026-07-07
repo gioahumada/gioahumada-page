@@ -20,7 +20,7 @@ const bottomRow = duplicatedProjects.filter((_, i) => i % 2 === 1);
     <div class="row-wrapper top-row">
       <div class="scroll-content" id="topRow">
         {topRow.map((project) => (
-          <a href={`/projects/${project.id}`} class="bento-item">
+          <a href={`/projects/${project.id}`} class:list={["bento-item", { "bento-item--image": project.data.media.type !== 'video' }]}>
             <div class="bento-media">
               {project.data.media.type === 'video' ? (
                 <>
@@ -57,7 +57,7 @@ const bottomRow = duplicatedProjects.filter((_, i) => i % 2 === 1);
     <div class="row-wrapper bottom-row">
       <div class="scroll-content" id="bottomRow">
         {bottomRow.map((project) => (
-          <a href={`/projects/${project.id}`} class="bento-item">
+          <a href={`/projects/${project.id}`} class:list={["bento-item", { "bento-item--image": project.data.media.type !== 'video' }]}>
             <div class="bento-media">
               {project.data.media.type === 'video' ? (
                 <>
@@ -186,6 +186,44 @@ const bottomRow = duplicatedProjects.filter((_, i) => i % 2 === 1);
 
 .bento-item:hover .thumbnail {
   opacity: 0;
+}
+
+/* Apple-style shine effect for image-only bento items */
+.bento-item--image .bento-media {
+  overflow: hidden;
+}
+
+.bento-item--image .bento-media::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(
+    100deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.25) 50%,
+    transparent 70%
+  );
+  transform: skewX(-15deg);
+  transition: left 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.bento-item--image:hover .bento-media::after {
+  left: 150%;
+}
+
+.bento-item--image .bento-media img {
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bento-item--image:hover .bento-media img {
+  transform: scale(1.05);
+  filter: brightness(1.05);
 }
 
 /* Responsive */

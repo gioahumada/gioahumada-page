@@ -9,7 +9,7 @@ projects.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 <section class="projects-container">
   <div class="projects-grid">
     {projects.map((project) => (
-      <article class="project-card">
+      <article class:list={["project-card", { "project-card--image": project.data.media.type !== 'video' }]}>
         <a href={`/projects/${project.id}`} class="project-link">
           <div class="project-media">
             {project.data.media.type === 'video' ? (
@@ -92,6 +92,44 @@ projects.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* Apple-style shine effect for image-only project cards */
+.project-card--image .project-media {
+  overflow: hidden;
+}
+
+.project-card--image .project-media::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(
+    100deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.28) 50%,
+    transparent 70%
+  );
+  transform: skewX(-15deg);
+  transition: left 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.project-card--image:hover .project-media::after {
+  left: 150%;
+}
+
+.project-card--image .project-media img {
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-card--image:hover .project-media img {
+  transform: scale(1.05);
+  filter: brightness(1.05);
 }
 
 .project-content {
