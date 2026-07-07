@@ -4,7 +4,7 @@ import BentoGrid from '../components/BentoGrid.astro';
 import ProjectList from '../components/ProjectList.astro';
 ---
 
-<Layout title="Giovanni Ahumada">
+<Layout title="Giovanni Ahumada" pageKey="home">
   <main>
     <div class="quote-container">
       <blockquote>
@@ -15,11 +15,11 @@ import ProjectList from '../components/ProjectList.astro';
     <div class="bento-wrapper">
       <BentoGrid />
     </div>
-    
+
     <div class="section-divider">
       <h2>Proyectos</h2>
     </div>
-    
+
     <div class="projects-wrapper">
       <ProjectList />
     </div>
@@ -32,68 +32,6 @@ import ProjectList from '../components/ProjectList.astro';
     </div>
   </main>
 </Layout>
-
-<script>
-  import { animate, stagger } from "motion";
-
-  // Premium easing (Apple-like smooth deceleration)
-  const smoothEasing = [0.16, 1, 0.3, 1];
-  const duration = 1.2;
-
-  // Initial state for all animated elements
-  const elements = [
-    ".quote-container",
-    ".bento-wrapper",
-    ".section-divider",
-    ".project-card",
-    ".repo-link-container"
-  ];
-
-  // Hide elements immediately to prepare for animation
-  elements.forEach(selector => {
-    document.querySelectorAll(selector).forEach(el => {
-      (el as HTMLElement).style.opacity = "0";
-      (el as HTMLElement).style.filter = "blur(10px)";
-      (el as HTMLElement).style.transform = "translateY(30px)";
-    });
-  });
-
-  // Animation sequence
-  animate(
-    ".quote-container", 
-    { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" } as any, 
-    { duration: duration, ease: smoothEasing } as any
-  );
-
-  animate(
-    ".bento-wrapper", 
-    { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" } as any, 
-    { delay: 0.2, duration: duration, ease: smoothEasing } as any
-  );
-
-  animate(
-    ".section-divider", 
-    { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" } as any, 
-    { delay: 0.3, duration: duration, ease: smoothEasing } as any
-  );
-
-  // Stagger individual project cards with a rich cascade
-  animate(
-    ".project-card", 
-    { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" } as any, 
-    { 
-      delay: stagger(0.15, { start: 0.4 } as any), 
-      duration: duration, 
-      ease: smoothEasing 
-    } as any
-  );
-
-  animate(
-    ".repo-link-container", 
-    { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" } as any, 
-    { delay: 1.0, duration: duration, ease: smoothEasing } as any
-  );
-</script>
 
 <style>
 .section-divider {

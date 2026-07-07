@@ -7,7 +7,7 @@ const projects = await getCollection('projects');
 projects.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
-<Layout title="Resumé - Giovanni Ahumada">
+<Layout title="Resumé - Giovanni Ahumada" pageKey="resume">
   <main class="resume-container">
     <div class="resume-header">
       <div class="header-content">
@@ -66,29 +66,12 @@ projects.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 </Layout>
 
 <script>
-  import { animate, stagger } from "motion";
-
   const printBtn = document.getElementById('printBtn');
   if (printBtn) {
     printBtn.addEventListener('click', () => {
       window.print();
     });
   }
-
-  // Animation sequence for resume items
-  const dur = 0.8;
-  const ease = [0.16, 1, 0.3, 1];
-
-  document.querySelectorAll('.resume-container > div').forEach(el => {
-    (el as HTMLElement).style.opacity = '0';
-    (el as HTMLElement).style.transform = 'translateY(20px)';
-  });
-
-  animate(
-    ".resume-container > div",
-    { opacity: 1, transform: "translateY(0)" } as any,
-    { delay: stagger(0.15), duration: dur, ease: ease } as any
-  );
 </script>
 
 <style>

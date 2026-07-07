@@ -7,7 +7,7 @@ const documents = await getCollection('documents');
 documents.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
-<Layout title="Documentos">
+<Layout title="Documentos" pageKey="documents">
   <main>
     <div class="quote-container">
         <blockquote>
@@ -39,45 +39,6 @@ documents.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
     </section>
   </main>
 </Layout>
-
-<script>
-  import { animate, stagger } from "motion";
-
-  // Premium easing
-  const smoothEasing = [0.16, 1, 0.3, 1];
-  const duration = 1.2;
-
-  // Initial state
-  const elements = [
-    ".quote-container",
-    ".document-card"
-  ];
-
-  elements.forEach(selector => {
-    document.querySelectorAll(selector).forEach(el => {
-      (el as HTMLElement).style.opacity = "0";
-      (el as HTMLElement).style.filter = "blur(10px)";
-      (el as HTMLElement).style.transform = "translateY(30px)";
-    });
-  });
-
-  // Animation sequence
-  animate(
-    ".quote-container", 
-    { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" } as any, 
-    { duration: duration, ease: smoothEasing } as any
-  );
-
-  animate(
-    ".document-card", 
-    { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" } as any, 
-    { 
-      delay: stagger(0.15, { start: 0.2 } as any), 
-      duration: duration, 
-      ease: smoothEasing 
-    } as any
-  );
-</script>
 
 <style>
 .documents-container {
