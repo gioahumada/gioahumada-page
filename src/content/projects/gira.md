@@ -1,6 +1,6 @@
 ---
 title: "Gira"
-description: "Respositorio & Chatbot para Estrudiantes"
+description: "Respositorio & Chatbot para Estudiantes"
 media:
   type: "image"
   url: "/images/gira.png"

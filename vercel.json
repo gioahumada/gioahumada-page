@@ -2,5 +2,8 @@
   "framework": "astro",
   "buildCommand": "npm run build",
   "devCommand": "npm run dev",
-  "installCommand": "npm install"
+  "installCommand": "npm install",
+  "redirects": [
+    { "source": "/projects/featured/:slug", "destination": "/:slug", "permanent": true }
+  ]
 } 

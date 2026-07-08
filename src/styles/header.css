@@ -44,18 +44,18 @@
 .logo-container {
   display: flex;
   align-items: center;
-  transform-origin: center;
-}
-
-.logo-container:hover {
-  transform: rotate(360deg);
-  transition: transform 3s ease;
 }
 
 .logo-image {
   width: 40px;
   height: 40px;
   object-fit: contain;
+  transform-origin: center;
+  transition: transform 2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.logo-container:hover .logo-image {
+  transform: rotate(360deg);
 }
 
 .brand-text {

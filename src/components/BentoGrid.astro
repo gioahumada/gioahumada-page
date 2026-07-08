@@ -20,7 +20,7 @@ const bottomRow = duplicatedProjects.filter((_, i) => i % 2 === 1);
     <div class="row-wrapper top-row">
       <div class="scroll-content" id="topRow">
         {topRow.map((project) => (
-          <a href={`/projects/${project.id}`} class:list={["bento-item", { "bento-item--image": project.data.media.type !== 'video' }]}>
+          <a href={`/${project.id}`} class:list={["bento-item", { "bento-item--image": project.data.media.type !== 'video' }]}>
             <div class="bento-media">
               {project.data.media.type === 'video' ? (
                 <>
@@ -57,7 +57,7 @@ const bottomRow = duplicatedProjects.filter((_, i) => i % 2 === 1);
     <div class="row-wrapper bottom-row">
       <div class="scroll-content" id="bottomRow">
         {bottomRow.map((project) => (
-          <a href={`/projects/${project.id}`} class:list={["bento-item", { "bento-item--image": project.data.media.type !== 'video' }]}>
+          <a href={`/${project.id}`} class:list={["bento-item", { "bento-item--image": project.data.media.type !== 'video' }]}>
             <div class="bento-media">
               {project.data.media.type === 'video' ? (
                 <>
