@@ -70,13 +70,40 @@ const {
 <script>
   import { animate } from "motion";
 
-  // Global click animation
-  document.addEventListener('click', (e) => {
-    const target = (e.target as HTMLElement).closest('a, button, .project-card, .bento-item');
-    
-    if (target) {
+  // Preload navigation click sound
+  const clickSound = new Audio("/sounds/click.wav");
+  clickSound.preload = "auto";
+  clickSound.volume = 0.1;
+
+  function isNavigationClick(target: EventTarget | null): boolean {
+    if (!(target instanceof Element)) return false;
+    const link = target.closest("a");
+    if (!(link instanceof HTMLAnchorElement)) return false;
+    if (!link.href || link.href.startsWith("#")) return false;
+    if (link.hasAttribute("download")) return false;
+    if (link.target && link.target !== "_self") return false;
+    try {
+      if (new URL(link.href, location.href).origin !== location.origin) return false;
+    } catch {
+      return false;
+    }
+    return true;
+  }
+
+  document.addEventListener("click", (e) => {
+    const target = e.target as HTMLElement;
+
+    // Navigation click sound
+    if (isNavigationClick(target) && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+      clickSound.currentTime = 0;
+      clickSound.play().catch(() => {});
+    }
+
+    // Scale animation
+    const scaleTarget = target.closest("a, button, .project-card, .bento-item");
+    if (scaleTarget) {
       animate(
-        target as Element,
+        scaleTarget as Element,
         { scale: [1, 0.95, 1] } as any,
         { duration: 0.2, ease: "ease-in-out" } as any
       );
