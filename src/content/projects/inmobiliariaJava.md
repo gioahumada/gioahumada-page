@@ -12,14 +12,14 @@ featured: true
 
 Este proyecto permite gestionar la venta de departamentos, incluyendo la administración de la demanda y los precios. A medida que la demanda aumenta, los precios también lo hacen, proporcionando una simulación realista del mercado inmobiliario.
 
-## ✨ Características
+## Características
 - Gestión de ventas de departamentos.
 - Administración de demanda y precios.
 - Interfaz amigable y fácil de usar.
 
-# 👥 Integrantes
-- [⎋ Bastian Mejias](https://github.com/bastianmejias)
-- [⎋ Patricio Hernandez](https://github.com/patriciohdez)
+# Integrantes
+- [⎋ Bastián Mejías](https://github.com/bastiivc)
+- [⎋ Patricio Hernández](https://github.com/PytricioPUCV)
 - [⎋ Giovanni Ahumada](https://github.com/gioahumada)
 
 <br>
