@@ -217,14 +217,9 @@ const bottomRow = duplicatedProjects.filter((_, i) => i % 2 === 1);
 }
 
 .bento-item--image .bento-media img {
-  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-              filter 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: filter 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.bento-item--image:hover .bento-media img {
-  transform: scale(1.05);
-  filter: brightness(1.05);
-}
 
 /* Responsive */
 @media (max-width: 768px) {

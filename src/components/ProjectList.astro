@@ -123,14 +123,9 @@ projects.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 }
 
 .project-card--image .project-media img {
-  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-              filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.project-card--image:hover .project-media img {
-  transform: scale(1.05);
-  filter: brightness(1.05);
-}
 
 .project-content {
   padding: 1.5rem;
