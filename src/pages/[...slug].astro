@@ -61,13 +61,6 @@ const formattedDate = new Date(project.data.date).toLocaleDateString('es-ES', {
       <Content />
     </div>
 
-    {project.data.link && (
-      <div class="project-link">
-        <a href={project.data.link} target="_blank" rel="noopener noreferrer">
-          Ver proyecto →
-        </a>
-      </div>
-    )}
   </article>
 </Layout>
 
@@ -230,26 +223,6 @@ time {
   border-radius: 0.5rem;
   margin: 1.5rem auto;
   display: block;
-}
-
-.project-link {
-  margin-top: 2rem;
-  text-align: center;
-}
-
-.project-link a {
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  background: var(--accent-color);
-  color: white;
-  text-decoration: none;
-  border-radius: 0.5rem;
-  transition: background-color 0.3s ease;
-  font-size: var(--text-sm);
-}
-
-.project-link a:hover {
-  opacity: 0.9;
 }
 
 /* Responsive */
