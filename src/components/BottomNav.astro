@@ -105,6 +105,12 @@
     pointer-events: none;
   }
 
+  @supports (-webkit-touch-callout: none) {
+    .bottom-nav-container {
+      bottom: 0.75rem;
+    }
+  }
+
   .glass-dock {
     pointer-events: auto;
     display: flex;
