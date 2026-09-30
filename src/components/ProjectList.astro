@@ -4,69 +4,119 @@ const projects = await getCollection('projects');
 
 // Ordenar por fecha
 projects.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const projectsByYear: Record<number, typeof projects> = {};
+for (const project of projects) {
+  const year = project.data.date.getUTCFullYear();
+  (projectsByYear[year] ??= []).push(project);
+}
+const years = Object.keys(projectsByYear).map(Number).sort((a, b) => b - a);
+const monthFormatter = new Intl.DateTimeFormat('es-CL', { month: 'long', timeZone: 'UTC' });
 ---
 
 <section class="projects-container">
-  <div class="projects-grid">
-    {projects.map((project) => (
-      <article class:list={["project-card", { "project-card--image": project.data.media.type !== 'video' }]}>
-        <a href={`/${project.id}`} class="project-link">
-          <div class="project-media">
-            {project.data.media.type === 'video' ? (
-              <>
-                <img 
-                  src={project.data.media.thumbnail} 
-                  alt={project.data.title} 
-                  class="thumbnail"
-                />
-                <video 
-                  class="video-player"
-                  poster={project.data.media.thumbnail}
-                  muted
-                  loop
-                  playsinline
-                >
-                  <source src={project.data.media.url} type="video/mp4" />
-                </video>
-              </>
-            ) : (
-              <img src={project.data.media.url} alt={project.data.title} />
-            )}
-          </div>
-          <div class="project-content">
-            <h3>{project.data.title}</h3>
-            <p>{project.data.description}</p>
-            <div class="tags">
-              {project.data.tags.map((tag) => (
-                <span class="tag">{tag}</span>
-              ))}
-            </div>
-          </div>
-        </a>
-      </article>
-    ))}
-  </div>
+  {years.map((year) => (
+    <section class="project-year-group" aria-labelledby={`projects-${year}`}>
+      <h3 class="project-year-heading" id={`projects-${year}`}>
+        <span class="year-branch" aria-hidden="true"></span>{year}
+      </h3>
+      <div class="projects-grid">
+        {projectsByYear[year].map((project) => (
+          <article class:list={["project-card", { "project-card--image": project.data.media.type !== 'video' }]}>
+            <a href={`/${project.id}`} class="project-link">
+              <div class="project-media">
+                {project.data.media.type === 'video' ? (
+                  <>
+                    <img
+                      src={project.data.media.thumbnail}
+                      alt={project.data.title}
+                      class="thumbnail"
+                    />
+                    <video
+                      class="video-player"
+                      poster={project.data.media.thumbnail}
+                      muted
+                      loop
+                      playsinline
+                    >
+                      <source src={project.data.media.url} type="video/mp4" />
+                    </video>
+                  </>
+                ) : (
+                  <img src={project.data.media.url} alt={project.data.title} />
+                )}
+              </div>
+              <div class="project-content">
+                <h4>{project.data.title}</h4>
+                <p class="project-month">
+                  <span class="month-dash" aria-hidden="true">–</span>
+                  {monthFormatter.format(project.data.date)}
+                </p>
+              </div>
+            </a>
+          </article>
+        ))}
+      </div>
+    </section>
+  ))}
 </section>
 
 <style>
 .projects-container {
   width: 100%;
   max-width: 1200px;
-  margin: 4rem auto;
+  margin: 1rem auto 4rem;
   padding: 0 1rem;
+}
+
+.project-year-group + .project-year-group {
+  margin-top: 2rem;
+}
+
+.project-year-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0 0 0.75rem;
+  color: #555;
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.year-branch {
+  position: relative;
+  flex: none;
+  width: 0.45rem;
+  height: 1em;
+}
+
+.year-branch::before,
+.year-branch::after {
+  content: '';
+  position: absolute;
+  left: 0;
+}
+
+.year-branch::before {
+  top: 0;
+  height: 50%;
+  border-left: 1px solid #bbb;
+}
+
+.year-branch::after {
+  top: 50%;
+  width: 0.45rem;
+  border-top: 1px solid #bbb;
 }
 
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
+  gap: 1.25rem;
 }
 
 .project-card {
-  background: var(--background-color);
-  border-radius: 1rem;
-  overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   transition: transform 0.3s ease;
 }
 
@@ -82,6 +132,8 @@ projects.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 .project-media {
   position: relative;
   padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  border-radius: 0.75rem;
+  overflow: hidden;
 }
 
 .project-media img,
@@ -128,32 +180,28 @@ projects.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 
 .project-content {
-  padding: 1.5rem;
+  padding: 0.75rem 0;
 }
 
-.project-content h3 {
-  font-size: var(--text-base);
-  margin-bottom: 0.5rem;
+.project-content h4 {
+  font-size: 1.0625rem;
+  font-weight: 500;
+  line-height: 1.15;
+  margin-bottom: 0;
 }
 
-.project-content p {
-  font-size: var(--text-sm);
-  color: var(--primary-color);
-  opacity: 0.8;
-  margin-bottom: 1rem;
+.project-month {
+  color: #777;
+  text-transform: capitalize;
+  font-size: 0.9375rem;
+  line-height: 1.15;
 }
 
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.tag {
-  font-size: var(--text-xs);
-  padding: 0.25rem 0.75rem;
-  background: #f0f0f0;
-  border-radius: 1rem;
+.month-dash {
+  margin-right: 0.15rem;
+  color: #888;
+  font-size: 1.25em;
+  font-weight: 300;
 }
 
 .video-player {
