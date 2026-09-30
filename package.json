@@ -3,6 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
+    "predev": "npm update",
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
@@ -11,11 +12,11 @@
     "doctor": "npx react-doctor@latest"
   },
   "dependencies": {
-    "astro": "^7.0.6",
+    "astro": "^7.3.5",
     "motion": "^12.23.24"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.9",
+    "@astrojs/check": "^0.9.10",
     "typescript": "^6.0.3"
   }
 }
