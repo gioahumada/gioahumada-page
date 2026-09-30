@@ -1,6 +1,8 @@
 ---
 import { ClientRouter } from "astro:transitions";
 import PageAnimator from "../components/PageAnimator.astro";
+import "../styles/fonts.css";
+import "../styles/global.css";
 
 interface Props {
   title: string;
@@ -34,7 +36,7 @@ const { title, pageKey = "default" } = Astro.props;
 body {
   color: white;
   background-color: black;
-  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-sans);
   text-rendering: geometricPrecision;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
