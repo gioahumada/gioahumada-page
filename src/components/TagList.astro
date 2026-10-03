@@ -1,0 +1,37 @@
+---
+interface Props {
+  tags: string[];
+  centered?: boolean;
+}
+
+const { tags, centered = false } = Astro.props;
+---
+
+<div class:list={["tags", { "tags--centered": centered }]}>
+  {tags.map((tag) => <span class="tag">{tag}</span>)}
+</div>
+
+<style>
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tags--centered {
+    justify-content: center;
+    margin: 0.75rem 0;
+  }
+
+  .tag {
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    background: #f0f0f0;
+    font-size: var(--text-xs);
+  }
+
+  .tags--centered .tag {
+    color: var(--primary-color);
+    opacity: 0.8;
+  }
+</style>

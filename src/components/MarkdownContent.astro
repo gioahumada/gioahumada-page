@@ -1,0 +1,87 @@
+<div class="content">
+  <slot />
+</div>
+
+<style>
+  .content {
+    max-width: 600px;
+    margin: 0 auto;
+    color: var(--primary-color);
+    font-size: var(--text-base);
+    line-height: 1.5;
+  }
+
+  .content :global(h2) {
+    margin: 2rem 0 1rem;
+    font-size: var(--text-heading);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  .content :global(h3) {
+    margin: 1.5rem 0 1rem;
+    font-size: var(--text-heading);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  .content :global(p) {
+    margin: 1rem 0;
+    font-size: var(--text-base);
+  }
+
+  .content :global(ul),
+  .content :global(ol) {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+    font-size: var(--text-base);
+  }
+
+  .content :global(li) {
+    margin: 0.5rem 0;
+  }
+
+  .content :global(a) {
+    color: var(--accent-color);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+  }
+
+  .content :global(a:hover) {
+    border-bottom-color: var(--accent-color);
+  }
+
+  .content :global(blockquote) {
+    margin: 1.5rem 0;
+    padding: 1rem 1.5rem;
+    border-left: 4px solid var(--accent-color);
+    background: #f8f8f8;
+    font-size: var(--text-base);
+    font-style: italic;
+  }
+
+  .content :global(code) {
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    background: #f4f4f4;
+    font-size: var(--text-sm);
+  }
+
+  .content :global(pre) {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    overflow-x: auto;
+    border-radius: 0.5rem;
+    background: #f4f4f4;
+    font-size: var(--text-sm);
+  }
+
+  .content :global(img) {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 1.5rem auto;
+    border-radius: 0.5rem;
+  }
+</style>

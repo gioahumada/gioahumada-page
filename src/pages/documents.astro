@@ -1,5 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import IntroQuote from '../components/IntroQuote.astro';
+import TagList from '../components/TagList.astro';
 import { getCollection } from 'astro:content';
 const documents = await getCollection('documents');
 
@@ -9,11 +11,7 @@ documents.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 <Layout title="Documentos" pageKey="documents">
   <main>
-    <div class="quote-container">
-        <blockquote>
-          "En esta sección encontrarás documentos y guías que he creado para compartir conocimiento y experiencias. ¡Espero que te sean de utilidad!"
-        </blockquote>
-    </div>
+    <IntroQuote text="En esta sección encontrarás documentos y guías que he creado para compartir conocimiento y experiencias. ¡Espero que te sean de utilidad!" />
 
     <section class="documents-container">
       <div class="documents-grid">
@@ -26,11 +24,7 @@ documents.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
               <div class="document-content">
                 <h3>{document.data.title}</h3>
                 <p>{document.data.description}</p>
-                <div class="tags">
-                  {document.data.tags.map((tag) => (
-                    <span class="tag">{tag}</span>
-                  ))}
-                </div>
+                <TagList tags={document.data.tags} />
               </div>
             </a>
           </article>
@@ -101,91 +95,13 @@ documents.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
   margin-bottom: 1rem;
 }
 
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.tag {
-  font-size: var(--text-xs);
-  padding: 0.25rem 0.75rem;
-  background: #f0f0f0;
-  border-radius: 1rem;
-}
-
-.quote-container {
-  max-width: 800px;
-  margin: 3rem auto;
-  padding: 0 1rem;
-  text-align: center;
-}
-
-blockquote {
-  font-size: var(--text-base);
-  color: var(--primary-color);
-  line-height: 1.6;
-  max-width: 300px;
-  margin: 0 auto;
-  text-align: left;
-}
-
-.content :global(pre) {
-  background: #ff0000;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  overflow-x: auto;
-  margin: 1.5rem 0;
-  font-size: var(--text-sm);
-}
-
-.content :global(code) {
-  background: #f61d1d;
-  padding: 0.2rem 0.4rem;
-  border-radius: 0.25rem;
-  font-size: var(--text-sm);
-}
-
-.content :global(pre.astro-code) {
-  background-color: #24292e;
-  color: #e1e4e8;
-  overflow-x: auto;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  margin: 1.5rem 0;
-  font-size: var(--text-sm);
-}
-
-.content :global(pre.astro-code code) {
-  color: inherit;
-}
-
 @media (max-width: 768px) {
-  .quote-container {
-    margin: 2rem auto;
-    padding: 0 1.5rem;
-  }
-
-  blockquote {
-    font-size: var(--text-sm);
-    max-width: 100%;
-  }
-
   .section-divider {
     margin: 3rem auto 1.5rem;
   }
 }
 
 @media (max-width: 480px) {
-  .quote-container {
-    margin: 1.5rem auto;
-    padding: 0 1rem;
-  }
-
-  blockquote {
-    font-size: var(--text-xs);
-  }
-
   .section-divider h2 {
     font-size: var(--text-heading);
   }

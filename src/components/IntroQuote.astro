@@ -1,0 +1,51 @@
+---
+interface Props {
+  text: string;
+}
+
+const { text } = Astro.props;
+---
+
+<div class="quote-container">
+  <blockquote>{text}</blockquote>
+</div>
+
+<style>
+  .quote-container {
+    max-width: 800px;
+    margin: 3rem auto;
+    padding: 0 1rem;
+    text-align: center;
+  }
+
+  blockquote {
+    max-width: 300px;
+    margin: 0 auto;
+    color: var(--primary-color);
+    font-size: var(--text-base);
+    line-height: 1.6;
+    text-align: left;
+  }
+
+  @media (max-width: 768px) {
+    .quote-container {
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+
+    blockquote {
+      font-size: var(--text-sm);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .quote-container {
+      margin: 1.5rem auto;
+      padding: 0 1rem;
+    }
+
+    blockquote {
+      font-size: var(--text-base);
+    }
+  }
+</style>

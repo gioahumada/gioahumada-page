@@ -2,15 +2,12 @@
 import Layout from '../layouts/Layout.astro';
 import BentoGrid from '../components/BentoGrid.astro';
 import ProjectList from '../components/ProjectList.astro';
+import IntroQuote from '../components/IntroQuote.astro';
 ---
 
 <Layout title="Giovanni Ahumada" pageKey="home">
   <main>
-    <div class="quote-container">
-      <blockquote>
-        "Hola, soy Giovanni Ahumada, estudiante de Ingeniería Informática en la Pontificia Universidad Catolica de Valparaiso. Me apasiona la tecnología y la programación, y estoy comprometido a aprender y crecer en este campo."
-      </blockquote>
-    </div>
+    <IntroQuote text="Hola, soy Giovanni Ahumada, estudiante de Ingeniería Informática en la Pontificia Universidad Catolica de Valparaiso. Me apasiona la tecnología y la programación, y estoy comprometido a aprender y crecer en este campo." />
 
     <div class="bento-wrapper">
       <BentoGrid />
@@ -48,29 +45,6 @@ import ProjectList from '../components/ProjectList.astro';
   letter-spacing: -0.02em;
 }
 
-.quote-container {
-  max-width: 800px;
-  margin: 3rem auto;
-  padding: 0 1rem;
-  text-align: center;
-}
-
-blockquote {
-  font-size: var(--text-base);
-  color: var(--primary-color);
-  line-height: 1.6;
-  max-width: 300px;
-  margin: 0 auto;
-  text-align: left;
-}
-
-blockquote footer {
-  margin-top: 0.5rem;
-  font-size: var(--text-base);
-  color: var(--text-2);
-  font-style: normal;
-}
-
 .repo-link-container {
   max-width: 800px;
   margin: 4rem auto 2rem;
@@ -90,30 +64,12 @@ blockquote footer {
 }
 
 @media (max-width: 768px) {
-  .quote-container {
-    margin: 2rem auto;
-    padding: 0 1.5rem;
-  }
-
-  blockquote {
-    font-size: var(--text-sm);
-  }
-
   .section-divider {
     margin: 3rem auto 1.5rem;
   }
 }
 
 @media (max-width: 480px) {
-  .quote-container {
-    margin: 1.5rem auto;
-    padding: 0 1rem;
-  }
-
-  blockquote {
-    font-size: var(--text-base);
-  }
-
   .section-divider h2 {
     font-size: var(--text-title);
   }

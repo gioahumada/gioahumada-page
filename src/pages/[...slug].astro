@@ -1,6 +1,8 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
+import MarkdownContent from '../components/MarkdownContent.astro';
+import TagList from '../components/TagList.astro';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -27,11 +29,7 @@ const formattedDate = new Date(project.data.date).toLocaleDateString('es-ES', {
       <div class="project-meta">
         <h1>{project.data.title}</h1>
         <time datetime={project.data.date.toISOString()}>{formattedDate}</time>
-        <div class="tags">
-          {project.data.tags.map((tag: string) => (
-            <span class="tag">{tag}</span>
-          ))}
-        </div>
+        <TagList tags={project.data.tags} centered />
       </div>
       
       <div class="media-container">
@@ -57,9 +55,9 @@ const formattedDate = new Date(project.data.date).toLocaleDateString('es-ES', {
       <p class="description-text">{project.data.description}</p>
     </div>
 
-    <div class="content">
+    <MarkdownContent>
       <Content />
-    </div>
+    </MarkdownContent>
 
   </article>
 </Layout>
@@ -90,23 +88,6 @@ const formattedDate = new Date(project.data.date).toLocaleDateString('es-ES', {
 
 time {
   font-size: var(--text-xs);
-  color: var(--primary-color);
-  opacity: 0.8;
-}
-
-.tags {
-  display: flex;
-  gap: 0.5rem;
-  justify-content: center;
-  margin: 0.75rem 0;
-  flex-wrap: wrap;
-}
-
-.tag {
-  font-size: var(--text-xs);
-  padding: 0.25rem 0.75rem;
-  background: #f0f0f0;
-  border-radius: 1rem;
   color: var(--primary-color);
   opacity: 0.8;
 }
@@ -142,88 +123,6 @@ time {
   color: var(--primary-color);
 }
 
-.content {
-  font-size: var(--text-base);
-  line-height: 1.5;
-  color: var(--primary-color);
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-/* Estilos para el contenido Markdown */
-.content :global(h2) {
-  font-size: var(--text-heading);
-  font-weight: 500;
-  margin: 2rem 0 1rem;
-  letter-spacing: -0.01em;
-}
-
-.content :global(h3) {
-  font-size: var(--text-heading);
-  font-weight: 500;
-  margin: 1.5rem 0 1rem;
-  letter-spacing: -0.01em;
-}
-
-.content :global(p) {
-  margin: 1rem 0;
-  font-size: var(--text-base);
-}
-
-.content :global(ul),
-.content :global(ol) {
-  margin: 1rem 0;
-  padding-left: 1.5rem;
-  font-size: var(--text-base);
-}
-
-.content :global(li) {
-  margin: 0.5rem 0;
-}
-
-.content :global(a) {
-  color: var(--accent-color);
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.3s ease;
-}
-
-.content :global(a:hover) {
-  border-bottom-color: var(--accent-color);
-}
-
-.content :global(blockquote) {
-  margin: 1.5rem 0;
-  padding: 1rem 1.5rem;
-  border-left: 4px solid var(--accent-color);
-  background: #f8f8f8;
-  font-style: italic;
-  font-size: var(--text-base);
-}
-
-.content :global(code) {
-  background: #f4f4f4;
-  padding: 0.2rem 0.4rem;
-  border-radius: 0.25rem;
-  font-size: var(--text-sm);
-}
-
-.content :global(pre) {
-  background: #f4f4f4;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  overflow-x: auto;
-  margin: 1.5rem 0;
-  font-size: var(--text-sm);
-}
-
-.content :global(img) {
-  max-width: 100%;
-  height: auto;
-  border-radius: 0.5rem;
-  margin: 1.5rem auto;
-  display: block;
-}
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -232,8 +131,7 @@ time {
   }
 
   .media-container,
-  .project-description,
-  .content {
+  .project-description {
     max-width: 100%;
   }
 }
