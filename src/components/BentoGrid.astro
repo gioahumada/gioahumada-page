@@ -17,79 +17,44 @@ const bottomRow = duplicatedProjects.filter((_, i) => i % 2 === 1);
 
 <section class="bento-container">
   <div class="scroll-container">
-    <div class="row-wrapper top-row">
-      <div class="scroll-content" id="topRow">
-        {topRow.map((project) => (
-          <a href={`/${project.id}`} class:list={["bento-item", { "bento-item--image": project.data.media.type !== 'video' }]}>
-            <div class="bento-media">
-              {project.data.media.type === 'video' ? (
-                <>
-                  <img 
-                    src={project.data.media.thumbnail} 
-                    alt={project.data.title} 
-                    class="thumbnail"
+    {[topRow, bottomRow].map((row, rowIndex) => (
+      <div class:list={["row-wrapper", rowIndex === 0 ? "top-row" : "bottom-row"]}>
+        <div class="scroll-content" id={rowIndex === 0 ? "topRow" : "bottomRow"}>
+          {row.map((project) => (
+            <a href={`/${project.id}`} class:list={["bento-item", { "bento-item--image": project.data.media.type !== 'video' }]}>
+              <div class="bento-media">
+                {project.data.media.type === 'video' ? (
+                  <>
+                    <img
+                      src={project.data.media.thumbnail}
+                      alt={project.data.title}
+                      class="thumbnail"
+                      loading="lazy"
+                    />
+                    <video
+                      class="video-player"
+                      poster={project.data.media.thumbnail}
+                      muted
+                      loop
+                      playsinline
+                      preload="none"
+                    >
+                      <source src={project.data.media.url} type="video/mp4" />
+                    </video>
+                  </>
+                ) : (
+                  <img
+                    src={project.data.media.url}
+                    alt={project.data.title}
                     loading="lazy"
                   />
-                  <video 
-                    class="video-player"
-                    poster={project.data.media.thumbnail}
-                    muted
-                    loop
-                    playsinline
-                    preload="none"
-                  >
-                    <source src={project.data.media.url} type="video/mp4" />
-                  </video>
-                </>
-              ) : (
-                <img 
-                  src={project.data.media.url} 
-                  alt={project.data.title}
-                  loading="lazy" 
-                />
-              )}
-            </div>
-          </a>
-        ))}
+                )}
+              </div>
+            </a>
+          ))}
+        </div>
       </div>
-    </div>
-    
-    <div class="row-wrapper bottom-row">
-      <div class="scroll-content" id="bottomRow">
-        {bottomRow.map((project) => (
-          <a href={`/${project.id}`} class:list={["bento-item", { "bento-item--image": project.data.media.type !== 'video' }]}>
-            <div class="bento-media">
-              {project.data.media.type === 'video' ? (
-                <>
-                  <img 
-                    src={project.data.media.thumbnail} 
-                    alt={project.data.title} 
-                    class="thumbnail"
-                    loading="lazy"
-                  />
-                  <video 
-                    class="video-player"
-                    poster={project.data.media.thumbnail}
-                    muted
-                    loop
-                    playsinline
-                    preload="none"
-                  >
-                    <source src={project.data.media.url} type="video/mp4" />
-                  </video>
-                </>
-              ) : (
-                <img 
-                  src={project.data.media.url} 
-                  alt={project.data.title}
-                  loading="lazy" 
-                />
-              )}
-            </div>
-          </a>
-        ))}
-      </div>
-    </div>
+    ))}
   </div>
 </section>
 
