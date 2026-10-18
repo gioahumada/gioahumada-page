@@ -1,15 +1,22 @@
 ---
 import { ClientRouter } from "astro:transitions";
 import PageAnimator from "../components/PageAnimator.astro";
+import SocialMeta from "../components/SocialMeta.astro";
 import "../styles/fonts.css";
 import "../styles/global.css";
 
 interface Props {
   title: string;
+  description?: string;
   pageKey?: string;
 }
 
-const { title, pageKey = "default" } = Astro.props;
+const {
+  title,
+  description = "Estudiante de Ingeniería Informática en la PUCV. Conoce mis proyectos de software, desarrollo web y tecnología.",
+  pageKey = "default",
+} = Astro.props;
+const shareUrl = new URL(Astro.url.pathname, Astro.site ?? "https://www.gioahumada.cl");
 ---
 
 <!doctype html>
@@ -18,6 +25,7 @@ const { title, pageKey = "default" } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content" />
     <title>{title}</title>
+    <SocialMeta title={title} description={description} url={shareUrl} />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <ClientRouter />
   </head>

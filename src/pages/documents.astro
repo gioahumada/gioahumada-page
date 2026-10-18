@@ -9,7 +9,7 @@ const documents = await getCollection('documents');
 documents.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
-<Layout title="Documentos" pageKey="documents">
+<Layout title="Documentos" description="Documentos y guías sobre programación, tecnología y otros temas que he preparado para compartir." pageKey="documents">
   <main>
     <IntroQuote text="En esta sección encontrarás documentos y guías que he creado para compartir conocimiento y experiencias. ¡Espero que te sean de utilidad!" />
 

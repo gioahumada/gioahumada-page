@@ -4,6 +4,7 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import BottomNav from "../components/BottomNav.astro";
 import PageAnimator from "../components/PageAnimator.astro";
+import SocialMeta from "../components/SocialMeta.astro";
 import "../styles/fonts.css";
 import "../styles/global.css";
 
@@ -15,9 +16,10 @@ interface Props {
 
 const {
   title,
-  description = "Portfolio personal y proyectos",
+  description = "Estudiante de Ingeniería Informática en la PUCV. Conoce mis proyectos de software, desarrollo web y tecnología.",
   pageKey = "default",
 } = Astro.props;
+const shareUrl = new URL(Astro.url.pathname, Astro.site ?? "https://www.gioahumada.cl");
 ---
 
 <!doctype html>
@@ -28,8 +30,8 @@ const {
     <meta name="facebook-domain-verification" content="v5fjbgf2k310j4lexa7s2pakkq38ni" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="description" content={description} />
     <title>{title}</title>
+    <SocialMeta title={title} description={description} url={shareUrl} />
     <ClientRouter />
   </head>
   <body data-page={pageKey}>
