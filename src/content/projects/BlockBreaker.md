@@ -31,7 +31,7 @@ BlockBreaker es un juego de arcade inspirado en el clásico Breakout, desarrolla
 ## 👥 Equipo de Desarrollo
 
 - [⎋ Giovanni Ahumada](https://github.com/gioahumada)
-- [⎋ German Oses](https://github.com/germanoses)
+- [⎋ German Oses](https://github.com/German-Oses)
 
 <br>
 
