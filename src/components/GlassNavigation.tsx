@@ -31,7 +31,7 @@ export default function GlassNavigation({ pathname }: { pathname: string }) {
     }))} />
     <div className="dock-separator" aria-hidden="true" />
     <div className="dock-social" ref={social}>
-      <Button icon={<img src="/logo.png" alt="" />} aria-label="Redes sociales" aria-expanded={open} aria-controls="social-menu" onClick={() => {
+      <Button icon={<img src="/logo.webp" alt="" />} aria-label="Redes sociales" aria-expanded={open} aria-controls="social-menu" onClick={() => {
         const sound = new Audio('/sounds/click.wav');
         sound.volume = 0.1;
         sound.play().catch(() => {});

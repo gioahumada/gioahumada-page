@@ -40,14 +40,14 @@ const photos = [
   <PhotoBack client:load />
 
   <div class="app__photos" id="photos-feed">
-    {photos.map(photo => (
+    {photos.map((photo, index) => (
       <div class="photo">
         <a href={photo.link} target="_blank">
-          <img src={photo.image} class="photo__image" alt={photo.title} />
+          <img src={photo.image} class="photo__image" alt={photo.title} loading={index === 0 ? 'eager' : 'lazy'} fetchpriority={index === 0 ? 'high' : 'auto'} width="1080" height="1350" />
         </a>
 
         <div class="photoSidebar">
-          <PhotoShare client:load />
+          <PhotoShare client:visible />
         </div>
 
         <div class="photoFooter">
@@ -65,7 +65,7 @@ const photos = [
   </div>
 
   <div class="desktop-photo-controls">
-    <PhotoShare client:load />
+    <PhotoShare client:visible />
     <span class="photo-controls-separator" aria-hidden="true"></span>
     <button type="button" class="lg-glass lg-button" data-photo-step="-1" aria-label="Foto anterior" aria-controls="photos-feed" disabled>
       <span class="material-symbols-outlined" aria-hidden="true">keyboard_arrow_up</span>
@@ -74,7 +74,7 @@ const photos = [
       <span class="material-symbols-outlined" aria-hidden="true">keyboard_arrow_down</span>
     </button>
   </div>
-  <div class="desktop-photo-nav"><BottomNav theme="dark" /></div>
+  <div class="desktop-photo-nav"><BottomNav theme="dark" defer /></div>
 </CleanLayout>
 
 <style>

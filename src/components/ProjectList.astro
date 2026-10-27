@@ -21,7 +21,7 @@ const monthFormatter = new Intl.DateTimeFormat('es-CL', { month: 'long', timeZon
         <span class="year-branch" aria-hidden="true"></span>{year}
       </h3>
       <div class="projects-grid">
-        {projectsByYear[year].map((project) => (
+        {projectsByYear[year].map((project, index) => (
           <article class:list={["project-card", { "project-card--image": project.data.media.type !== 'video' }]}>
             <a href={`/${project.id}`} class="project-link">
               <div class="project-media">
@@ -31,6 +31,8 @@ const monthFormatter = new Intl.DateTimeFormat('es-CL', { month: 'long', timeZon
                       src={project.data.media.thumbnail}
                       alt={project.data.title}
                       class="thumbnail"
+                      loading={year === years[0] && index === 0 ? 'eager' : 'lazy'}
+                      fetchpriority={year === years[0] && index === 0 ? 'high' : 'auto'}
                     />
                     <video
                       class="video-player"
@@ -38,12 +40,13 @@ const monthFormatter = new Intl.DateTimeFormat('es-CL', { month: 'long', timeZon
                       muted
                       loop
                       playsinline
+                      preload="none"
                     >
                       <source src={project.data.media.url} type="video/mp4" />
                     </video>
                   </>
                 ) : (
-                  <img src={project.data.media.url} alt={project.data.title} />
+                  <img src={project.data.media.url} alt={project.data.title} loading={year === years[0] && index === 0 ? 'eager' : 'lazy'} fetchpriority={year === years[0] && index === 0 ? 'high' : 'auto'} />
                 )}
               </div>
               <div class="project-content">

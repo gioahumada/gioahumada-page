@@ -3,6 +3,11 @@
   "buildCommand": "npm run build",
   "devCommand": "npm run dev",
   "installCommand": "npm install",
+  "headers": [
+    { "source": "/images/:path*", "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600" }] },
+    { "source": "/img/:path*", "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600" }] },
+    { "source": "/logo.webp", "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600" }] }
+  ],
   "redirects": [
     { "source": "/projects/featured/:slug", "destination": "/:slug", "permanent": true }
   ]

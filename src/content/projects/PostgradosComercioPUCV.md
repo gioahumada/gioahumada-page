@@ -3,8 +3,8 @@ title: "Postgrados Comercio PUCV"
 description: "Plataforma web para presentar los programas de postgrado de la Escuela de Comercio PUCV"
 media:
   type: "image"
-  url: "/images/postgrado.png"
-  thumbnail: "/images/postgrado.png"
+  url: "/images/postgrado.webp"
+  thumbnail: "/images/postgrado.webp"
 date: 2026-08-30
 tags: ["Laravel", "PHP"]
 featured: true

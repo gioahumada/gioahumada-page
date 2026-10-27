@@ -37,7 +37,7 @@ const formattedDate = new Date(project.data.date).toLocaleDateString('es-ES', {
           <video 
             controls
             poster={project.data.media.thumbnail}
-            preload="auto"
+            preload="none"
           >
             <source src={project.data.media.url} type="video/mp4" />
           </video>

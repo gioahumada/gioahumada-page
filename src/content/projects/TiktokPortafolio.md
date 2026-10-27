@@ -3,8 +3,8 @@ title: "Tiktok Portafolio"
 description: "A Tiktok portafolio made with JavaScript"
 media: 
   type: "image"
-  url: "/images/tiktokportafolio.png"
-  thumbnail: "/images/tiktokportafolio.png"
+  url: "/images/tiktokportafolio.webp"
+  thumbnail: "/images/tiktokportafolio.webp"
 date: 2024-10-31
 tags: ["CSS"]
 featured: true

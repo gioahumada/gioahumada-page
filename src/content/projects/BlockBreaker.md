@@ -3,8 +3,8 @@ title: "BlockBreaker"
 description: "A simple game made with Java"
 media: 
   type: "image"
-  url: "/images/blockbreaker.png"
-  thumbnail: "/images/blockbreaker.png"
+  url: "/images/blockbreaker.webp"
+  thumbnail: "/images/blockbreaker.webp"
 date: 2024-03-20
 tags: ["Java", "LibGDX", "Gradle"]
 featured: true

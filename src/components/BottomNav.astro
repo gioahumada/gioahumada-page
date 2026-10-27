@@ -1,11 +1,11 @@
 ---
 import GlassNavigation from './GlassNavigation';
 
-interface Props { theme?: 'light' | 'dark' }
-const { theme = 'light' } = Astro.props;
+interface Props { theme?: 'light' | 'dark'; defer?: boolean }
+const { theme = 'light', defer = false } = Astro.props;
 ---
 <div class="bottom-nav-container" data-theme={theme}>
-  <GlassNavigation pathname={Astro.url.pathname} client:load />
+  {defer ? <GlassNavigation pathname={Astro.url.pathname} client:visible /> : <GlassNavigation pathname={Astro.url.pathname} client:load />}
 </div>
 
 <style>
