@@ -22,7 +22,7 @@ projects.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
           <a href="https://github.com/gioahumada" target="_blank" rel="noopener noreferrer">GitHub</a>
         </div>
       </div>
-      <button class="export-btn" id="printBtn" aria-label="Exportar a PDF">
+      <button class="export-btn lg-glass lg-button" data-variant="filled" id="printBtn" aria-label="Exportar a PDF">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
           <polyline points="7 10 12 15 17 10"></polyline>
@@ -134,23 +134,7 @@ projects.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
   }
 
   .export-btn {
-    display: flex;
-    align-items: center;
     gap: 0.5rem;
-    padding: 0.75rem 1.25rem;
-    background: var(--primary-color);
-    color: var(--background-color);
-    border: none;
-    border-radius: 9999px;
-    font-size: var(--text-base);
-    font-weight: 500;
-    cursor: pointer;
-    transition: transform 0.2s ease, opacity 0.2s ease;
-  }
-
-  .export-btn:hover {
-    opacity: 0.9;
-    transform: scale(1.02);
   }
 
   .resume-section {
@@ -234,10 +218,6 @@ projects.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
     .badge {
       background: rgba(255,255,255,0.1);
       color: #ccc;
-    }
-    .export-btn {
-      background: #fff;
-      color: #000;
     }
   }
 

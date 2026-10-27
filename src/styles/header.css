@@ -8,11 +8,9 @@
 }
 
 .header.scrolled {
-  background-color: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+  background-color: transparent;
+  border-bottom: 1px solid transparent;
+  box-shadow: none;
 }
 
 @media (max-width: 768px) {
@@ -21,6 +19,16 @@
     background-color: #fff;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
+  }
+
+  .nav-container.lg-glass {
+    margin: 0 auto;
+    border-radius: 0;
+    background-color: transparent;
+    background-image: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
   }
 }
 
@@ -36,8 +44,9 @@
 
 .nav-container {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 0.75rem auto;
   padding: 0.75rem 1rem;
+  border-radius: 9999px;
   display: flex;
   transition: padding 0.6s cubic-bezier(0.22, 1, 0.36, 1);
   justify-content: space-between;

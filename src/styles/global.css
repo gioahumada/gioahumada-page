@@ -23,9 +23,13 @@
   cursor: url("/fonts/cursor-white.svg") 2 0, auto !important;
 }
 
+html {
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+}
+
 html:not(:has(body[data-page="photos"])) {
   scroll-behavior: smooth;
-  scrollbar-width: thin;
   scrollbar-color: #555 transparent;
 }
 
