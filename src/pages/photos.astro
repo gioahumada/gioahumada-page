@@ -1,5 +1,7 @@
 ---
 import CleanLayout from '../layouts/CleanLayout.astro';
+import BottomNav from '../components/BottomNav.astro';
+import { PhotoBack, PhotoShare } from '../components/PhotoControls';
 
 // Datos de las fotos/proyectos
 const photos = [
@@ -35,11 +37,9 @@ const photos = [
 ---
 
 <CleanLayout title="Fotografías" description="Una selección de fotografías y momentos de Giovanni Ahumada." pageKey="photos">
-  <a href="/" class="back-button">
-    <span class="material-symbols-outlined">arrow_back</span>
-  </a>
+  <PhotoBack client:load />
 
-  <div class="app__photos">
+  <div class="app__photos" id="photos-feed">
     {photos.map(photo => (
       <div class="photo">
         <a href={photo.link} target="_blank">
@@ -47,9 +47,7 @@ const photos = [
         </a>
 
         <div class="photoSidebar">
-          <button class="share-button" aria-label="Compartir">
-            <span class="material-symbols-outlined">ios_share</span>
-          </button>
+          <PhotoShare client:load />
         </div>
 
         <div class="photoFooter">
@@ -65,16 +63,29 @@ const photos = [
       </div>
     ))}
   </div>
+
+  <div class="desktop-photo-controls">
+    <PhotoShare client:load />
+    <span class="photo-controls-separator" aria-hidden="true"></span>
+    <button type="button" class="lg-glass lg-button" data-photo-step="-1" aria-label="Foto anterior" aria-controls="photos-feed" disabled>
+      <span class="material-symbols-outlined" aria-hidden="true">keyboard_arrow_up</span>
+    </button>
+    <button type="button" class="lg-glass lg-button" data-photo-step="1" aria-label="Foto siguiente" aria-controls="photos-feed">
+      <span class="material-symbols-outlined" aria-hidden="true">keyboard_arrow_down</span>
+    </button>
+  </div>
+  <div class="desktop-photo-nav"><BottomNav theme="dark" /></div>
 </CleanLayout>
 
 <style>
 /* Botón de regreso */
-.back-button {
+:global(.back-button) {
   position: fixed;
   top: calc(20px + env(safe-area-inset-top, 0px));
   left: calc(20px + env(safe-area-inset-left, 0px));
   z-index: 1000;
-  background: rgba(0, 0, 0, 0.5);
+  --lg-glass: rgb(0 0 0 / 0.55);
+  --lg-edge: rgb(255 255 255 / 0.2);
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -83,15 +94,24 @@ const photos = [
   justify-content: center;
   color: white;
   text-decoration: none;
-  backdrop-filter: blur(5px);
   transition: transform 0.3s ease;
 }
 
-.back-button:hover {
+:global(.back-button:hover) {
   transform: scale(1.1);
 }
 
-.back-button .material-symbols-outlined {
+:global(.back-button a) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+:global(.back-button .material-symbols-outlined) {
   font-size: var(--text-lg);
 }
 
@@ -261,25 +281,63 @@ const photos = [
   }
 }
 
-/* En ventanas grandes o casi cuadradas, conserva un marco de teléfono. */
-@media (min-width: 769px), (min-aspect-ratio: 3/4) {
-  .back-button {
-    top: calc((100dvh - min(52.78rem, 100dvh, 211.12vw)) / 2 + 20px);
-    left: calc((100vw - min(25rem, 100vw, 47.37dvh)) / 2 + 20px);
+.desktop-photo-nav,
+.desktop-photo-controls {
+  display: none;
+}
+
+@media (min-width: 769px) {
+  :global(body[data-page="photos"]) {
+    --photo-nav-space: calc(2rem + 56px);
+    --photo-width: min(30rem, 70vw, (100dvh - var(--photo-nav-space) - 32px) * 313 / 445);
+    background: radial-gradient(ellipse at 50% 35%, #202023 0%, #111113 48%, #080809 100%);
   }
 
   .app__photos {
-    width: min(25rem, 100vw, 47.37dvh);
+    width: var(--photo-width);
     height: auto;
-    aspect-ratio: 9 / 19;
+    aspect-ratio: 313 / 445;
     border-radius: 20px;
+    top: calc(var(--photo-nav-space) / -2);
+  }
+
+  .photo:not(:last-child) { margin-bottom: 2px; }
+  .photoSidebar { display: none; }
+
+  .desktop-photo-nav { display: contents; }
+  .desktop-photo-nav :global(.bottom-nav-container) { bottom: 2rem; }
+
+  .desktop-photo-controls {
+    position: fixed;
+    left: calc(50% + var(--photo-width) / 2 + 20px);
+    top: calc((100dvh - var(--photo-nav-space)) / 2);
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .photo-controls-separator {
+    width: 24px;
+    height: 1px;
+    align-self: center;
+    background: rgb(255 255 255 / 0.2);
+  }
+
+  .desktop-photo-controls button {
+    width: 40px;
+    padding: 0;
+    border-radius: 50%;
+    --lg-glass: rgb(255 255 255 / 0.15);
+    --lg-glass-active: rgb(255 255 255 / 0.25);
+    color: white;
   }
 }
 
 /* Nuevo estilo para el botón de compartir */
-.share-button {
-  background: rgba(255, 255, 255, 0.2);
-  border: none;
+:global(.share-button) {
+  --lg-glass: rgb(255 255 255 / 0.2);
+  --lg-glass-active: rgb(255 255 255 / 0.4);
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -287,15 +345,14 @@ const photos = [
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  backdrop-filter: blur(4px);
   transition: transform 0.3s ease;
 }
 
-.share-button:hover {
+:global(.share-button:hover) {
   transform: scale(1.1);
 }
 
-.share-button .material-symbols-outlined {
+:global(.share-button .material-symbols-outlined) {
   color: white;
   font-size: var(--text-lg);
 }
@@ -324,11 +381,32 @@ const photos = [
   }
 
   onPageLoad(() => {
+    const feed = document.getElementById('photos-feed');
+    const controls = [...document.querySelectorAll<HTMLButtonElement>('[data-photo-step]')];
+    const updateControls = () => {
+      if (!feed) return;
+      controls.forEach((button) => {
+        button.disabled = Number(button.dataset.photoStep) < 0
+          ? feed.scrollTop <= 1
+          : feed.scrollTop + feed.clientHeight >= feed.scrollHeight - 1;
+      });
+    };
+    const scrollPhoto = (event: MouseEvent) => {
+      if (!feed) return;
+      const step = Number((event.currentTarget as HTMLButtonElement).dataset.photoStep);
+      const photos = [...feed.querySelectorAll<HTMLElement>('.photo')];
+      const index = Math.round(feed.scrollTop / feed.clientHeight) + step;
+      if (photos[index]) feed.scrollTo({ top: photos[index].offsetTop, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+    };
+    controls.forEach((button) => button.addEventListener('click', scrollPhoto));
+    feed?.addEventListener('scroll', updateControls, { passive: true });
+    updateControls();
+
     const handleClick = (e: MouseEvent) => {
       const button = (e.target as Element).closest('.share-button') as HTMLElement | null;
       if (!button) return;
       e.preventDefault();
-      const photo = button.closest('.photo');
+      const photo = button.closest('.photo') ?? feed?.querySelectorAll('.photo')[Math.round(feed.scrollTop / feed.clientHeight)];
       if (!photo) return;
       const titleEl = photo.querySelector('h3');
       const descEl = photo.querySelector('.photoFooter__description');
@@ -341,7 +419,11 @@ const photos = [
       );
     };
     document.addEventListener('click', handleClick);
-    return () => document.removeEventListener('click', handleClick);
+    return () => {
+      document.removeEventListener('click', handleClick);
+      controls.forEach((button) => button.removeEventListener('click', scrollPhoto));
+      feed?.removeEventListener('scroll', updateControls);
+    };
   });
 </script>
 
