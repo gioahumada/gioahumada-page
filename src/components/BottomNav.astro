@@ -5,7 +5,7 @@ interface Props { theme?: 'light' | 'dark'; defer?: boolean }
 const { theme = 'light', defer = false } = Astro.props;
 ---
 <div class="bottom-nav-container" data-theme={theme}>
-  {defer ? <GlassNavigation pathname={Astro.url.pathname} client:visible /> : <GlassNavigation pathname={Astro.url.pathname} client:load />}
+  {defer ? <GlassNavigation pathname={Astro.url.pathname} client:visible /> : <GlassNavigation pathname={Astro.url.pathname} client:idle />}
 </div>
 
 <style>
