@@ -10,6 +10,8 @@ tags: ["Flutter", "FastAPI"]
 featured: true
 ---
 
+import AvatarStack from '../../components/AvatarStack.astro';
+
 Fixpert es un marketplace de servicios de oficios bajo demanda que conecta a clientes con prestadores verificados (fixers). Permite solicitar trabajos, recibir ofertas, coordinar la ejecución, pagar y calificar, con verificación de identidad, certificaciones, chat y panel administrativo — todo desde un único codebase Flutter que sirve a web y mobile, respaldado por una API en FastAPI y PostgreSQL.
 
 ## Expo Software PUCV 2026 — Premio Interdisciplinario
@@ -28,7 +30,7 @@ Fixpert fue presentado en la 19ª edición de la Expo Software de la Pontificia 
   </div>
 </div>
 
-<style>
+<style>{`
 .gallery {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -69,7 +71,7 @@ Fixpert fue presentado en la 19ª edición de la Expo Software de la Pontificia 
     aspect-ratio: 9/16;
   }
 }
-</style>
+`}</style>
 
 <div class="ig-embed">
   <iframe 
@@ -80,7 +82,7 @@ Fixpert fue presentado en la 19ª edición de la Expo Software de la Pontificia 
   </iframe>
 </div>
 
-<style>
+<style>{`
 .ig-embed {
   position: relative;
   width: 100%;
@@ -97,7 +99,7 @@ Fixpert fue presentado en la 19ª edición de la Expo Software de la Pontificia 
   width: 100%;
   height: 100%;
 }
-</style>
+`}</style>
 
 ## Stack tecnológico
 
@@ -106,17 +108,20 @@ El proyecto se compone de dos repositorios principales:
 - **Backend**: API REST desarrollada en **Python** con **FastAPI**, usando **PostgreSQL** como base de datos y **Docker** para contenedores. Maneja autenticación, verificación de identidad, matching de servicios y procesamiento de pagos.
 - **Frontend**: Aplicación en **Flutter** que compila a web, iOS y Android desde un único codebase, con soporte para chat en tiempo real, notificaciones push y un panel administrativo completo.
 
-<br>
+<br />
 
 ---
 
-<br>
+<br />
 
 ## Integrantes
-- [⎋ Diego Negrín](https://github.com/DiegoRNR)
-- [⎋ Xavier Montoya](https://github.com/XavierMSch)
-- [⎋ Ignacio Córdova](https://github.com/Ignacio-Cordova)
-- [⎋ Simón Vera](https://github.com/SimonVra)
-- [⎋ Matías Díaz](https://github.com/MatiasDiazCastro21)
-- [⎋ Simón Ledezma](https://github.com/luffy126)
-- [⎋ Daniel Saavedra](https://github.com/DanielSaavedra1)
+
+<AvatarStack size="2.5rem" people={[
+  { name: 'Diego Negrín', github: 'DiegoRNR' },
+  { name: 'Xavier Montoya', github: 'XavierMSch' },
+  { name: 'Ignacio Córdova', github: 'Ignacio-Cordova' },
+  { name: 'Simón Vera', github: 'SimonVra' },
+  { name: 'Matías Díaz', github: 'MatiasDiazCastro21' },
+  { name: 'Simón Ledezma', github: 'luffy126' },
+  { name: 'Daniel Saavedra', github: 'DanielSaavedra1' },
+]} />

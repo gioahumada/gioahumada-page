@@ -10,6 +10,8 @@ tags: ["Next.js", "Three.js", "Vercel AI SDK"]
 featured: true
 ---
 
+import AvatarStack from '../../components/AvatarStack.astro';
+
 Intervee es un prototipo de entorno virtual inmersivo diseñado para simular entrevistas de trabajo de forma interactiva. El sistema sitúa al usuario en una plaza isométrica 3D donde puede explorar y acceder a edificios corporativos para someterse a simulaciones técnicas guiadas por un agente reclutador impulsado por Inteligencia Artificial. Permite procesar respuestas en tiempo real, evaluar competencias técnicas, proporcionar retroalimentación analítica detallada y guardar el historial de sesiones, todo bajo una arquitectura web centralizada y modular.
 
 ## Desarrollo y Validación Empírica en la PUCV
@@ -23,18 +25,26 @@ La arquitectura de Intervee se sostiene sobre tecnologías web modernas, orquest
 - **Frontend y Motor 3D**: La experiencia inmersiva está construida con **React Three Fiber**, lo que permite renderizar el mundo isométrico, gestionar físicas de colisiones y animar el avatar directamente en el navegador. La interfaz también administra el flujo de la entrevista mediante un chat bidireccional y presenta un dashboard dinámico con las métricas de compatibilidad.
 - **Backend e Inteligencia Artificial**: Desarrollado sobre el **Stack T3** (Next.js, TypeScript, Zod, Prisma), el servidor se encarga de la lógica de negocio, la validación estricta de datos, la gestión de sesiones y el panel administrativo. El motor de evaluación se nutre de **Vercel AI SDK**, que empaqueta el contexto del perfil corporativo (como el caso de Microsoft) y procesa el lenguaje natural del usuario para generar calificaciones y sugerencias de mejora.
 
-<br>
+<br />
 
 ---
 
-<br>
+<br />
 
 ## Integrantes
-- [⎋ Bastián Mejías](https://github.com/bastiivc)
-- [⎋ Patricio Hernández](https://github.com/PytricioPUCV)
-- [⎋ Rigoberto Canales](https://github.com/ItsRigozzi)
+
+<AvatarStack size="2.5rem" people={[
+  { name: 'Bastián Mejías', github: 'bastiivc' },
+  { name: 'Patricio Hernández', github: 'PytricioPUCV' },
+  { name: 'Rigoberto Canales', github: 'ItsRigozzi' },
+]} />
+<br />
+
+---
+
+<br />
 
 ## Enlaces del Proyecto
 
 - [⎋ Ver en GitHub](https://github.com/Mx4-2V/intervee) — Repositorio completo del entorno virtual y la API.
-- [⎋ Ver Video Demo)](https://www.youtube.com/watch?v=KIjuq1jO8KQ) — Demostración audiovisual del flujo completo de uso del prototipo.
+- [⎋ Ver Video Demo](https://www.youtube.com/watch?v=KIjuq1jO8KQ) — Demostración audiovisual del flujo completo de uso del prototipo.
