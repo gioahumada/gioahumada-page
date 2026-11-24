@@ -1,13 +1,13 @@
 ---
 interface Props {
-  text: string;
+  text?: string;
 }
 
 const { text } = Astro.props;
 ---
 
 <div class="quote-container">
-  <blockquote>{text}</blockquote>
+  <blockquote>{text}<slot /></blockquote>
 </div>
 
 <style>
