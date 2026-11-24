@@ -5,6 +5,9 @@ import react from '@astrojs/react';
 export default defineConfig({
   site: 'https://www.gioahumada.cl',
   integrations: [react()],
+  build: {
+    inlineStylesheets: 'always',
+  },
   markdown: {
     shikiConfig: {
       theme: 'nord', // Cambia esto al tema que prefieras
