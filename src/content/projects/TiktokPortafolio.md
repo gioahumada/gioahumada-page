@@ -1,6 +1,6 @@
 ---
 title: "Tiktok Portafolio"
-description: "A Tiktok portafolio made with JavaScript"
+description: "Portafolio estilo TikTok hecho con JavaScript"
 media: 
   type: "image"
   url: "/images/tiktokportafolio.webp"
@@ -13,5 +13,11 @@ featured: true
 Realizado con CSS puro, este portafolio es una demostración de cómo se puede crear una interfaz moderna y atractiva utilizando solo CSS, basandose en el scroll de tiktok.
 
 Este proyecto fue luego utilizado en el apartado Fotografias de mi portafolio.
+
+<br />
+
+---
+
+<br />
 
 [⎋ Ver en GitHub](https://github.com/gioahumada/tiktokportafolio) 𛰍 [⎋ Demo](https://gioahumada.github.io/tiktokportafolio/)

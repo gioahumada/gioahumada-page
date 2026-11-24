@@ -1,6 +1,6 @@
 ---
 title: "Gira"
-description: "Respositorio & Chatbot para Estudiantes"
+description: "Repositorio y chatbot para estudiantes"
 media:
   type: "image"
   url: "/images/gira.webp"
@@ -11,5 +11,11 @@ featured: true
 ---
 
 Gira es un repositorio de proyectos para estudiantes, que incluye un chatbot que puede ayudar a resolver dudas y problemas. Creado con Laravel, React y Neuron AI.
+
+<br />
+
+---
+
+<br />
 
 Sitio web: No disponible por el momento.

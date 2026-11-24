@@ -1,6 +1,6 @@
 ---
 title: "Ollama GUI"
-description: "A simple GUI for Ollama"
+description: "Interfaz gráfica simple para Ollama"
 media: 
   type: "video"
   url: "/videos/STG_vSnap.mp4"
@@ -10,4 +10,4 @@ tags: ["CSS", "JavaScript", "WIP"]
 featured: true
 ---
 
-# Work in Progress
+Proyecto en desarrollo.

@@ -22,4 +22,10 @@ Turbo C Online lleva el clásico Turbo C a la web mediante una emulación de DOS
 
 Para adaptarlo a la web, se tomó el código de Turbo C y se comprimió para crear una versión compacta, eliminando la interfaz gráfica y los componentes innecesarios. Esta versión se ejecuta dentro de un entorno DOS emulado en el navegador mediante WebAssembly.
 
+<br />
+
+---
+
+<br />
+
 [⎋ Ver Sitio Web](https://turboc-online.vercel.app/)

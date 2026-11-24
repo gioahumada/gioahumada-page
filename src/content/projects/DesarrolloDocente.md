@@ -1,6 +1,6 @@
 ---
 title: "Desarrollo Docente"
-description: "a WebApp for Desarrollo Docente PUCV"
+description: "WebApp para el Desarrollo Docente PUCV"
 media: 
   type: "image"
   url: "/images/dd.webp"
@@ -11,5 +11,11 @@ featured: true
 ---
 
 Este proyecto es una WebApp para el Desarrollo Docente de la Pontificia Universidad Católica de Valparaíso, que permite a los docentes revisar su trayectoria académica y profesional. Este proyecto fue desarrollado en Laravel utilizando Google OAuth para la autenticación. 
+
+<br />
+
+---
+
+<br />
 
 [⎋ Link](https://www.desarrollodocentepucv.cl)

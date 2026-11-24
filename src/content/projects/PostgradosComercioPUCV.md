@@ -12,4 +12,10 @@ featured: true
 
 Sitio web de postgrados de la Escuela de Comercio de la Pontificia Universidad Católica de Valparaíso. La plataforma presenta su oferta académica, incluyendo programas de magíster, diplomados y cursos, y permite gestionar sus contenidos.
 
+<br />
+
+---
+
+<br />
+
 [⎋ Ver sitio](https://postgrados.comerciopucv.cl/)
