@@ -41,7 +41,10 @@ export const PAGE_ANIMATIONS: Record<string, PageAnimationConfig> = {
   },
   resume: {
     targets: [
-      { selector: ".resume-container > div", stagger: { each: 0.15, start: 0 } },
+      { selector: ".typewriter", delay: 0 },
+      { selector: ".quote-container", delay: 0.15 },
+      { selector: ".resume-content", delay: 0.3 },
+      { selector: ".dither", delay: 0.5 },
     ],
   },
   photos: {
