@@ -22,14 +22,47 @@ const { theme = 'light', defer = false } = Astro.props;
   @supports (-webkit-touch-callout: none) {
     .bottom-nav-container { bottom: 0.75rem; }
   }
+  .bottom-nav-container :global(.dock-controls),
+  .bottom-nav-container :global(.dock-social-menu) {
+    /* Liquid glass: poco desenfoque y lente profunda para que se note la refracción */
+    --lg-blur: 6px;
+    --lg-glass: rgb(255 255 255 / 0.28);
+    --lg-bezel: 18px;
+    --lg-thickness: 22px;
+    --lg-refraction: 1.6;
+    --lg-rim-saturation: 1.8;
+    --lg-edge: rgb(0 0 0 / 0.14);
+    --lg-drop: rgb(0 0 0 / 0.14);
+    box-shadow:
+      inset 0 0 0 0.5px var(--lg-edge),
+      0 8px 24px rgb(0 0 0 / 0.1),
+      0 1px 3px var(--lg-drop);
+  }
   .bottom-nav-container :global(.dock-controls) {
     display: flex;
     align-items: center;
     gap: 0.25rem;
     padding: 0.5rem 1rem;
     border-radius: 9999px;
-    --lg-blur: 20px;
     pointer-events: auto;
+  }
+  .bottom-nav-container[data-theme="dark"] :global(.dock-controls),
+  .bottom-nav-container[data-theme="dark"] :global(.dock-social-menu) {
+    --lg-glass: rgb(40 40 40 / 0.35);
+    --lg-edge: rgb(255 255 255 / 0.14);
+    --lg-drop: transparent;
+    box-shadow:
+      inset 0 0 0 0.5px var(--lg-edge),
+      0 8px 24px rgb(0 0 0 / 0.35);
+  }
+  /* La lente profunda es solo del dock: las piezas internas (lente de la pestaña,
+     botón social) vuelven a la geometría por defecto para no deformar los iconos. */
+  .bottom-nav-container :global(.lg-tab-bar),
+  .bottom-nav-container :global(.dock-social) {
+    --lg-bezel: initial;
+    --lg-thickness: initial;
+    --lg-refraction: initial;
+    --lg-rim-saturation: initial;
   }
   .bottom-nav-container :global(.lg-tab-bar) {
     --lg-tab-width: 43px;
@@ -87,10 +120,10 @@ const { theme = 'light', defer = false } = Astro.props;
   .bottom-nav-container :global(.dock-social button[aria-expanded="true"] img) {
     transform: rotate(180deg);
   }
+  /* El menú sale del dock (portal): un backdrop-filter anidado no ve la página, así que va fuera */
   .bottom-nav-container :global(.dock-social-menu) {
-    position: absolute;
-    right: 0;
-    bottom: calc(100% + 12px);
+    position: fixed;
+    pointer-events: auto;
     min-width: 140px;
     padding: 6px;
     border-radius: 16px;
