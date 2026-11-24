@@ -1,0 +1,90 @@
+---
+interface Props {
+  words: string[];
+}
+
+const { words } = Astro.props;
+---
+
+<h1 class="typewriter" aria-label={words[0]} data-words={JSON.stringify(words)}>
+  <span class="typewriter-text" aria-hidden="true">{words[0]}</span><span class="typewriter-caret" aria-hidden="true"></span>
+</h1>
+
+<script>
+  import { onPageLoad } from "../lib/spa-lifecycle";
+
+  onPageLoad(() => {
+    const el = document.querySelector<HTMLElement>(".typewriter");
+    const text = el?.querySelector<HTMLElement>(".typewriter-text");
+    if (!el || !text) return;
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const words: string[] = JSON.parse(el.dataset.words ?? "[]");
+    let index = 0;
+    let timer: number;
+
+    const wait = (ms: number) =>
+      new Promise<void>((resolve) => { timer = window.setTimeout(resolve, ms); });
+    let stopped = false;
+
+    (async () => {
+      let current = words[0];
+      await wait(1800);
+      while (!stopped) {
+        // borrar
+        while (current.length > 0 && !stopped) {
+          current = current.slice(0, -1);
+          text.textContent = current;
+          await wait(60);
+        }
+        index = (index + 1) % words.length;
+        await wait(250);
+        // escribir
+        for (let i = 1; i <= words[index].length && !stopped; i++) {
+          current = words[index].slice(0, i);
+          text.textContent = current;
+          await wait(110);
+        }
+        await wait(1800);
+      }
+    })();
+
+    return () => {
+      stopped = true;
+      clearTimeout(timer);
+    };
+  });
+</script>
+
+<style>
+  .typewriter {
+    max-width: 800px;
+    margin: 3rem auto 0;
+    padding: 0 1rem;
+    text-align: center;
+    font-size: var(--text-title);
+    line-height: 1.15;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--primary-color);
+    min-height: 1.15em;
+  }
+
+  .typewriter-caret {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    background: currentColor;
+    animation: caret-blink 1s steps(1) infinite;
+  }
+
+  @keyframes caret-blink {
+    50% { opacity: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .typewriter-caret { animation: none; }
+  }
+</style>

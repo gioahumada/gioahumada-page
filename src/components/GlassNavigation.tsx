@@ -10,7 +10,7 @@ const icons = [
 const pages = [
   { href: '/', name: 'Inicio' },
   { href: '/documents', name: 'Documentos' },
-  { href: '/resume', name: 'Resumé' },
+  { href: '/resume', name: 'Résumé' },
   { href: '/photos', name: 'Fotografías' },
 ];
 

@@ -1,0 +1,122 @@
+---
+---
+
+<div class="dither">
+  <canvas class="dither-canvas" aria-hidden="true"></canvas>
+  <div class="dither-content"><slot /></div>
+</div>
+
+<script>
+  import { onPageLoad } from "../lib/spa-lifecycle";
+
+  // Matriz de Bayer 8x8 normalizada a 0..1
+  const BAYER = (() => {
+    let m = [[0, 2], [3, 1]];
+    for (let n = 2; n < 8; n *= 2) {
+      const next: number[][] = Array.from({ length: n * 2 }, () => Array(n * 2).fill(0));
+      for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
+        const v = m[y][x] * 4;
+        next[y][x] = v;
+        next[y][x + n] = v + 2;
+        next[y + n][x] = v + 3;
+        next[y + n][x + n] = v + 1;
+      }
+      m = next;
+    }
+    return m.map((row) => row.map((v) => (v + 0.5) / 64));
+  })();
+
+  const PIXEL = 4; // tamaño de cada "punto" en px de pantalla
+  // Verde muy claro, derivado de la vegetación de la foto de perfil
+  const COLOR = [160, 212, 170];
+
+  onPageLoad(() => {
+    const canvas = document.querySelector<HTMLCanvasElement>(".dither-canvas");
+    const ctx = canvas?.getContext("2d");
+    if (!canvas || !ctx) return;
+
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let w = 0, h = 0, noise = new Float32Array(0), img: ImageData, raf = 0, visible = true;
+
+    const resize = () => {
+      w = Math.max(1, Math.ceil(canvas.clientWidth / PIXEL));
+      h = Math.max(1, Math.ceil(canvas.clientHeight / PIXEL));
+      canvas.width = w;
+      canvas.height = h;
+      img = ctx.createImageData(w, h);
+      noise = Float32Array.from({ length: w * h }, () => Math.random());
+      draw(performance.now());
+    };
+
+    const draw = (now: number) => {
+      const t = now / 1000;
+      const data = img.data;
+      for (let y = 0; y < h; y++) {
+        // 1 abajo, 0 arriba: la densidad crece hacia el borde inferior
+        const fade = Math.pow(y / h, 0.9);
+        for (let x = 0; x < w; x++) {
+          const wave =
+            0.5 + 0.25 * Math.sin(x * 0.09 + t * 0.9 + Math.sin(y * 0.12 - t * 0.5) * 1.5) +
+            0.25 * Math.sin(y * 0.18 - t * 0.7 + x * 0.04);
+          const v = fade * (0.35 + wave * 0.9);
+          const i = (y * w + x) * 4;
+          // mezcla Bayer con ruido para dispersar los puntos
+          const threshold = BAYER[y & 7][x & 7] * 0.45 + noise[y * w + x] * 0.55;
+          const on = v > threshold;
+          data[i] = COLOR[0]; data[i + 1] = COLOR[1]; data[i + 2] = COLOR[2];
+          data[i + 3] = on ? 255 : 0;
+        }
+      }
+      ctx.putImageData(img, 0, 0);
+    };
+
+    const loop = (now: number) => {
+      if (visible) draw(now);
+      raf = requestAnimationFrame(loop);
+    };
+
+    resize();
+    window.addEventListener("resize", resize);
+    const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; });
+    io.observe(canvas);
+    if (!reduced) raf = requestAnimationFrame(loop);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", resize);
+      io.disconnect();
+    };
+  });
+</script>
+
+<style>
+  .dither {
+    position: relative;
+    flex: 1 1 auto;
+    width: 100vw;
+    min-height: 40vh;
+    margin-top: 1rem;
+    margin-left: calc(50% - 50vw);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .dither-content {
+    position: absolute;
+    top: 2rem;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    pointer-events: auto;
+  }
+
+  .dither-canvas {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    image-rendering: pixelated;
+  }
+</style>

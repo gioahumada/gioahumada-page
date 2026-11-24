@@ -1,279 +1,155 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import IntroQuote from '../components/IntroQuote.astro';
+import CvButtons from '../components/CvButtons';
+import SocialLinks from '../components/SocialLinks';
+import TypewriterTitle from '../components/TypewriterTitle.astro';
+import DitherBottom from '../components/DitherBottom.astro';
+import { profile } from '../data/resume';
 
-const projects = await getCollection('projects');
-// Ordenar por fecha
-projects.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: profile.name,
+  jobTitle: profile.role,
+  email: profile.email,
+  url: profile.site,
+  alumniOf: { '@type': 'CollegeOrUniversity', name: profile.school },
+  sameAs: profile.contact.flat().map((l) => l.url).filter((u): u is string => !!u && u.startsWith('http') && u !== profile.site),
+};
 ---
 
-<Layout title="Resumé - Giovanni Ahumada" description="Conoce mi experiencia, formación y proyectos como estudiante de Ingeniería Informática en la PUCV." pageKey="resume">
-  <main class="resume-container">
-    <div class="resume-header">
-      <div class="header-content">
-        <h1>Giovanni Ahumada</h1>
-        <p class="role">Estudiante de Ingeniería Informática</p>
-        <p class="school">Pontificia Universidad Católica de Valparaíso</p>
-        <div class="contact-links">
-          <a href="mailto:giovanni.ahumada@pucv.cl">giovanni.ahumada@pucv.cl</a>
-          <span>&bull;</span>
-          <a href="https://www.linkedin.com/in/gioahumada/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          <span>&bull;</span>
-          <a href="https://github.com/gioahumada" target="_blank" rel="noopener noreferrer">GitHub</a>
-        </div>
-      </div>
-      <button class="export-btn lg-glass lg-button" data-variant="filled" id="printBtn" aria-label="Exportar a PDF">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-          <polyline points="7 10 12 15 17 10"></polyline>
-          <line x1="12" y1="15" x2="12" y2="3"></line>
-        </svg>
-        <span>Exportar a PDF</span>
-      </button>
-    </div>
+<Layout title="Résumé - Giovanni Ahumada" description="Descarga mi CV en versión visual o en versión compatible con sistemas ATS." pageKey="resume">
+  <Fragment slot="head">
+    <meta name="robots" content="index, follow" />
+    <link rel="alternate" type="application/json" href="/resume.json" title="CV en JSON" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </Fragment>
 
-    <div class="resume-section">
-      <h2>Perfil Profesional</h2>
-      <p class="profile-text">
-        Estudiante de Ingeniería Informática apasionado por el desarrollo de software, la creación de interfaces dinámicas y las tecnologías modernas web. Compromiso con el aprendizaje continuo y la búsqueda de soluciones creativas a problemas complejos.
-      </p>
-    </div>
+  <main class="resume-main">
+    <TypewriterTitle words={["Résumé", "Currículum", "Curriculum vitæ"]} />
+    <IntroQuote text="Estoy abierto a nuevas oportunidades: prácticas, proyectos y equipos donde pueda construir, aprender y aportar. Si algo de lo que hago te hace sentido, conversemos." />
 
-    <div class="resume-section">
-      <h2>Proyectos Destacados</h2>
-      <div class="projects-list">
-        {projects.map((project) => (
-          <div class="resume-project">
-            <div class="project-header">
-              <h3>
-                <a href={project.data.link || `/${project.id}`} target="_blank">{project.data.title}</a>
-              </h3>
-              <span class="project-date">
-                {project.data.date.toLocaleDateString('es-ES', { year: 'numeric', month: 'short' })}
-              </span>
-            </div>
-            <p class="project-desc">{project.data.description}</p>
-            <div class="project-tags">
-              {project.data.tags.map((tag) => (
-                <span class="badge">{tag}</span>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
+    <div class="resume-content">
+      <CvButtons client:load />
     </div>
+    <DitherBottom>
+      <SocialLinks client:idle />
+    </DitherBottom>
   </main>
 </Layout>
 
-<script>
-  import { onPageLoad } from "../lib/spa-lifecycle";
-
-  onPageLoad(() => {
-    const handleClick = (e: MouseEvent) => {
-      if ((e.target as Element).closest('#printBtn')) {
-        window.print();
-      }
-    };
-    document.addEventListener('click', handleClick);
-    return () => document.removeEventListener('click', handleClick);
-  });
-</script>
-
-<style>
-  .resume-container {
-    max-width: 800px;
-    margin: 4rem auto;
-    padding: 2rem;
-    background: var(--background-color);
-    border-radius: 1rem;
-  }
-
-  .resume-header {
+<style is:global>
+  .resume-main {
+    position: relative;
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 3rem;
-    border-bottom: 2px solid rgba(0,0,0,0.05);
-    padding-bottom: 2rem;
+    flex-direction: column;
+    min-height: 112vh;
   }
 
-  .header-content h1 {
-    font-size: var(--text-title);
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    color: var(--primary-color);
+  .wrapper {
+    overflow-x: clip;
   }
 
-  .header-content p {
-    margin: 0.25rem 0;
-    color: var(--text-2);
+  .resume-content {
+    position: relative;
+    z-index: 1;
   }
 
-  .role {
-    font-size: var(--text-base);
-    font-weight: 500;
-    color: var(--primary-color) !important;
-  }
-
-  .contact-links {
+  .cv-social {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 0.75rem;
-    margin-top: 1rem;
-    font-size: var(--text-base);
-    color: var(--text-2);
   }
 
-  .contact-links a {
-    color: var(--text-2);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .contact-links a:hover {
+  .cv-social-label {
+    font-size: var(--text-sm);
     color: var(--primary-color);
   }
 
-  .export-btn {
-    gap: 0.5rem;
+  .cv-social-dock {
+    display: flex;
+    gap: 0.25rem;
   }
 
-  .resume-section {
-    margin-bottom: 3rem;
-  }
-
-  .resume-section h2 {
-    font-size: var(--text-heading);
-    font-weight: 600;
-    margin-bottom: 1.5rem;
+  .cv-social-dock a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
     color: var(--primary-color);
+    transition: transform 0.2s ease;
   }
 
-  .profile-text {
-    line-height: 1.5;
-    color: var(--text-2);
+  .cv-social-dock a:hover {
+    transform: scale(1.12);
   }
 
-  .projects-list {
+  .cv-actions {
     display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
-
-  .resume-project {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .project-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-  }
-
-  .project-header h3 {
-    font-size: var(--text-heading);
-    font-weight: 600;
-  }
-
-  .project-header h3 a {
-    color: var(--primary-color);
-    text-decoration: none;
-  }
-
-  .project-header h3 a:hover {
-    text-decoration: underline;
-  }
-
-  .project-date {
-    font-size: var(--text-base);
-    color: var(--text-2);
-  }
-
-  .project-desc {
-    color: var(--text-2);
-    line-height: 1.5;
-    font-size: var(--text-base);
-  }
-
-  .project-tags {
-    display: flex;
+    justify-content: center;
+    gap: 1rem;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
+    margin: 2rem auto 0;
+    padding: 0 1rem;
   }
 
-  .badge {
-    font-size: 0.75rem;
-    padding: 0.2rem 0.6rem;
-    background: rgba(0,0,0,0.05);
-    border-radius: 9999px;
-    color: var(--text-2);
+  .cv-robot {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: var(--text-sm);
+    color: var(--primary-color);
   }
 
-  @media (prefers-color-scheme: dark) {
-    .resume-header {
-      border-bottom-color: rgba(255,255,255,0.1);
-    }
-    .badge {
-      background: rgba(255,255,255,0.1);
-      color: #ccc;
-    }
+  .cv-robot .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 
-  @media (max-width: 640px) {
-    .resume-header {
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-    .export-btn {
-      width: 100%;
-      justify-content: center;
-    }
-    .project-header {
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-    .resume-container {
-      margin: 2rem 1rem;
-      padding: 1.5rem;
-    }
+  .cv-robot-who {
+    display: inline-block;
+    animation: cv-who-in 0.4s ease both;
   }
 
-  @media print {
-    @page { margin: 1cm; }
-    body, html {
-      background: white !important;
-      color: black !important;
-    }
-    .resume-container {
-      margin: 0 !important;
-      padding: 0 !important;
-      max-width: 100% !important;
-      border: none !important;
-      box-shadow: none !important;
-    }
-    .export-btn, .bottom-nav-container, .header, .nav-container {
-      display: none !important;
-    }
-    * {
-      -webkit-print-color-adjust: exact !important;
-      print-color-adjust: exact !important;
-    }
-    /* Ensure dark text on printing for readability */
-    .header-content h1, .role, .resume-section h2, .project-header h3 a {
-      color: black !important;
-    }
-    .header-content p, .contact-links, .profile-text, .project-desc, .project-date {
-      color: #333 !important;
-    }
-    .badge {
-      background: #eee !important;
-      color: #333 !important;
-      border: 1px solid #ddd;
-    }
-    a {
-      text-decoration: none !important;
-    }
+  @keyframes cv-who-in {
+    from { opacity: 0; transform: translateY(0.4em); }
+    to { opacity: 1; transform: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cv-robot-who { animation: none; }
+  }
+
+  .cv-robot-link {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: 0;
+    padding: 0;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .cv-robot-link:hover:not(:disabled) {
+    opacity: 0.7;
+  }
+
+  .cv-robot-link:disabled {
+    opacity: 0.5;
+  }
+
+  .cv-status {
+    min-height: 1.5rem;
+    margin-top: 1rem;
+    text-align: center;
+    font-size: var(--text-sm);
+    color: var(--primary-color);
   }
 </style>

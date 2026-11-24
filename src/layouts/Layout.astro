@@ -40,6 +40,7 @@ const shareUrl = new URL(Astro.url.pathname, Astro.site ?? "https://www.gioahuma
     <AnimationGate />
     <title>{title}</title>
     <SocialMeta title={title} description={description} url={shareUrl} />
+    <slot name="head" />
     <ClientRouter />
   </head>
   <body data-page={pageKey}>
