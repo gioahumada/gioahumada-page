@@ -3,8 +3,8 @@ title: "Gira"
 description: "Respositorio & Chatbot para Estudiantes"
 media:
   type: "image"
-  url: "/images/gira.png"
-  thumbnail: "/images/gira.png"
+  url: "/images/gira.webp"
+  thumbnail: "/images/gira.webp"
 date: 2026-03-01
 tags: ["Laravel", "React", "Neuron AI"]
 featured: true

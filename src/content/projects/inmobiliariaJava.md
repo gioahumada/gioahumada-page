@@ -4,7 +4,7 @@ description: "a CRUD made with Java"
 media: 
   type: "video"
   url: "/videos/STG_flash.mp4"
-  thumbnail: "/images/inmobiliaria.png"
+  thumbnail: "/images/inmobiliaria.webp"
 date: 2024-03-20
 tags: ["Java", "Maven"]
 featured: true

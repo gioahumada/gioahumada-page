@@ -4,7 +4,7 @@ description: "Plataforma de tutoría inteligente con RAG y evaluación multimode
 media:
   type: "video"
   url: "/videos/studilo.mp4"
-  thumbnail: "/images/studilo.png"
+  thumbnail: "/images/studilo.webp"
 date: 2026-07-06
 tags: ["Laravel", "Laravel AI SDK"]
 featured: true

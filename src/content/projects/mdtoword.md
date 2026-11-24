@@ -4,8 +4,8 @@ description: "Python Module to Convert Markdown to Word"
 date: 2024-12-22
 media:
   type: "image"
-  url: "/images/mdtoword.png"
-  thumbnail: "/images/mdtoword.png"
+  url: "/images/mdtoword.webp"
+  thumbnail: "/images/mdtoword.webp"
 tags: ["Python", "Markdown", "pip"]
 featured: true
 ---

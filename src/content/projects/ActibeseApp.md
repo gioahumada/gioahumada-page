@@ -3,8 +3,8 @@ title: "Actibese App"
 description: "PUCV Physical Education Department's app for IPAQ test"
 media: 
   type: "image"
-  url: "/images/ActibeseApp.png"
-  thumbnail: "/images/ActibeseApp.png"
+  url: "/images/ActibeseApp.webp"
+  thumbnail: "/images/ActibeseApp.webp"
 date: 2025-02-21
 tags: ["React Native", "Expo"]
 featured: true

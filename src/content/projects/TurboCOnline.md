@@ -3,8 +3,8 @@ title: "Turbo C Online"
 description: "Emulación web del clásico Turbo C mediante DOSBox-X y WebAssembly"
 media:
   type: "image"
-  url: "/images/turboc.png"
-  thumbnail: "/images/turboc.png"
+  url: "/images/turboc.webp"
+  thumbnail: "/images/turboc.webp"
 date: 2026-08-22
 tags: ["C", "React", "WebAssembly", "DOSBox-X"]
 featured: true

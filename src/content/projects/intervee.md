@@ -4,7 +4,7 @@ description: "Simulador de entrevistas laborales"
 media:
   type: "video"
   url: "/videos/intervee.mp4"
-  thumbnail: "/images/intervee.jpg"
+  thumbnail: "/images/intervee.webp"
 date: 2026-04-01
 tags: ["Next.js", "Three.js", "Vercel AI SDK"]
 featured: true

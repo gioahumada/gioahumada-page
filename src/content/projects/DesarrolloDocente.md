@@ -3,8 +3,8 @@ title: "Desarrollo Docente"
 description: "a WebApp for Desarrollo Docente PUCV"
 media: 
   type: "image"
-  url: "/images/dd.png"
-  thumbnail: "/images/dd.png"
+  url: "/images/dd.webp"
+  thumbnail: "/images/dd.webp"
 date: 2025-07-28
 tags: ["Laravel"]
 featured: true

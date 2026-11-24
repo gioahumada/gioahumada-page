@@ -4,7 +4,7 @@ description: "Marketplace de servicios de oficios bajo demanda"
 media:
   type: "video"
   url: "/videos/fixpert.mp4"
-  thumbnail: "/images/fixpert.png"
+  thumbnail: "/images/fixpert.webp"
 date: 2026-06-18
 tags: ["Flutter", "FastAPI"]
 featured: true
