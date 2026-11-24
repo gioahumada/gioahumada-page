@@ -35,3 +35,5 @@ pnpm-debug.log*
 
 # CV humano generado en el build (scripts/build-cv.ts)
 src/generated/
+.vercel
+.env*
