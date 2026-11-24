@@ -1,0 +1,63 @@
+---
+import Layout from '../layouts/Layout.astro';
+import IntroQuote from '../components/IntroQuote.astro';
+---
+
+<Layout title="Página no encontrada - Giovanni Ahumada" description="La página que buscas no existe o se movió." pageKey="notfound">
+  <Fragment slot="head">
+    <meta name="robots" content="noindex" />
+  </Fragment>
+
+  <main class="not-found">
+    <p class="not-found-code" aria-hidden="true">404</p>
+    <IntroQuote text="Esta página no existe o cambió de lugar. Puede que el enlace esté roto o que el proyecto ya no esté publicado." />
+    <div class="not-found-actions">
+      <a class="not-found-button" href="/">Volver al inicio</a>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .not-found {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    text-align: center;
+  }
+
+  .not-found-code {
+    font-size: clamp(5rem, 22vw, 11rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--primary-color);
+    opacity: 0.12;
+    user-select: none;
+  }
+
+  .not-found-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+
+  .not-found-button {
+    font-size: var(--text-base);
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
+    background: var(--accent-color);
+    color: var(--background-color);
+    text-decoration: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .not-found-button:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+  }
+</style>
