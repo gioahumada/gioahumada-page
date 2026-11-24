@@ -29,8 +29,8 @@ export const PAGE_ANIMATIONS: Record<string, PageAnimationConfig> = {
       { selector: ".quote-container", delay: 0 },
       { selector: ".bento-wrapper", delay: 0.2 },
       { selector: ".section-divider", delay: 0.3 },
-      { selector: ".project-card", stagger: { each: 0.15, start: 0.4 } },
-      { selector: ".repo-link-container", delay: 1.0 },
+      { selector: ".project-card:not(.project-card--lcp)", stagger: { each: 0.05, start: 0 } },
+      { selector: ".repo-link-container", delay: 0.4 },
     ],
   },
   documents: {
@@ -141,15 +141,20 @@ export function playPageAnimation(pageKey: string | undefined) {
     elements.forEach((el) => allElements.add(el));
   }
 
-  if (allElements.size === 0) return;
+  if (allElements.size === 0) {
+    document.documentElement.classList.remove("anim-pending");
+    return;
+  }
 
   if (prefersReducedMotion()) {
     allElements.forEach(applyVisibleStylesToElement);
+    document.documentElement.classList.remove("anim-pending");
     return;
   }
 
   // Estado inicial inmediato (antes del primer frame)
   allElements.forEach(applyInitialStylesToElement);
+  document.documentElement.classList.remove("anim-pending");
 
   // Safety net: si la Web Animations API falla, los elementos quedan visibles
   const safetyNetMs = ANIMATION_DEFAULTS.duration * 1000 + 800;

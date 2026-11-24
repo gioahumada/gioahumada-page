@@ -4,11 +4,7 @@ const allProjects = await getCollection('projects');
 const featuredProjects = allProjects.filter(({ data }) => data.featured === true);
 
 // Duplicar los proyectos para tener suficiente contenido
-const duplicatedProjects = [
-  ...featuredProjects, 
-  ...featuredProjects, 
-  ...featuredProjects
-];
+const duplicatedProjects = Array.from({ length: 9 }, () => featuredProjects).flat();
 
 // Separar los proyectos en dos filas
 const topRow = duplicatedProjects.filter((_, i) => i % 2 === 0);
@@ -208,15 +204,6 @@ const bottomRow = duplicatedProjects.filter((_, i) => i % 2 === 1);
 import { onPageLoad } from "../lib/spa-lifecycle";
 
 onPageLoad(() => {
-  const topRow = document.getElementById('topRow');
-  const bottomRow = document.getElementById('bottomRow');
-  if (topRow && bottomRow) {
-    const topContent = topRow.innerHTML;
-    const bottomContent = bottomRow.innerHTML;
-    topRow.innerHTML = topContent + topContent + topContent;
-    bottomRow.innerHTML = bottomContent + bottomContent + bottomContent;
-  }
-
   document.querySelectorAll<HTMLElement>('.scroll-content').forEach(content => {
     content.addEventListener('animationend', () => {
       content.style.animation = 'none';

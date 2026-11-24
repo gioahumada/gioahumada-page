@@ -1,6 +1,7 @@
 ---
 import { ClientRouter } from "astro:transitions";
 import PageAnimator from "../components/PageAnimator.astro";
+import AnimationGate from "../components/AnimationGate.astro";
 import SocialMeta from "../components/SocialMeta.astro";
 import "../styles/fonts.css";
 import "glisse/styles.css";
@@ -25,6 +26,7 @@ const shareUrl = new URL(Astro.url.pathname, Astro.site ?? "https://www.gioahuma
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content" />
+    <AnimationGate />
     <title>{title}</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />

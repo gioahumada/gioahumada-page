@@ -1,0 +1,14 @@
+---
+import { PAGE_ANIMATIONS } from "../lib/page-animations";
+
+const hiddenSelectors = Object.entries(PAGE_ANIMATIONS)
+  .flatMap(([key, config]) =>
+    config.targets.map((t) => `html.anim-pending body[data-page="${key}"] ${t.selector}`)
+  )
+  .join(",");
+const css = `${hiddenSelectors}{opacity:0}`;
+const js = `if(!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.{document.documentElement.classList.add("anim-pending");setTimeout(function(){document.documentElement.classList.remove("anim-pending")},3000)}`;
+---
+
+<script is:inline set:html={js}></script>
+<style is:inline set:html={css}></style>

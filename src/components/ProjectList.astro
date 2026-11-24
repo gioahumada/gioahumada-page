@@ -22,7 +22,7 @@ const monthFormatter = new Intl.DateTimeFormat('es-CL', { month: 'long', timeZon
       </h3>
       <div class="projects-grid">
         {projectsByYear[year].map((project, index) => (
-          <article class:list={["project-card", { "project-card--image": project.data.media.type !== 'video' }]}>
+          <article class:list={["project-card", { "project-card--image": project.data.media.type !== 'video', "project-card--lcp": year === years[0] && index === 0 }]}>
             <a href={`/${project.id}`} class="project-link">
               <div class="project-media">
                 {project.data.media.type === 'video' ? (
