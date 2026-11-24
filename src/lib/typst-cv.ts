@@ -24,10 +24,9 @@ function init() {
 }
 
 export async function buildAtsCv(): Promise<Blob> {
-  const [$typst, data] = await Promise.all([
-    init(),
-    fetch("/resume.json").then((r) => r.text()),
-  ]);
+  const [$typst, response] = await Promise.all([init(), fetch("/resume.json")]);
+  if (!response.ok) throw new Error(`No se pudo cargar /resume.json (${response.status})`);
+  const data = await response.text();
   const pdf = await $typst.pdf({ mainContent: atsSrc, inputs: { data } });
   if (!pdf) throw new Error("Typst no generó el PDF");
   return new Blob([pdf as BlobPart], { type: "application/pdf" });
