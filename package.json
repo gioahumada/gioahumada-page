@@ -3,25 +3,35 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "predev": "npm update",
+    "predev": "npm update && npm run cv",
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "doctor": "npx react-doctor@latest"
+    "doctor": "npx react-doctor@latest",
+    "cv": "tsx scripts/build-cv.ts",
+    "prebuild": "npm run cv"
   },
   "dependencies": {
     "@astrojs/react": "^7.1.1",
+    "@astrojs/vercel": "^11.0.22",
+    "@myriaddreamin/typst-ts-web-compiler": "^0.7.0",
+    "@myriaddreamin/typst.ts": "^0.7.0",
     "astro": "^7.3.5",
     "glisse": "^0.4.3",
     "motion": "^12.23.24",
     "react": "^19.3.1",
-    "react-dom": "^19.3.1"
+    "react-dom": "^19.3.1",
+    "simple-icons": "^16.38.1",
+    "tsx": "^4.23.15"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
     "lighthouse": "^13.6.0",
     "typescript": "^6.0.3"
+  },
+  "engines": {
+    "node": "24.x"
   }
 }

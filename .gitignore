@@ -32,3 +32,6 @@ pnpm-debug.log*
 # Local development
 *.log
 .cache/
+
+# CV humano generado en el build (scripts/build-cv.ts)
+src/generated/
